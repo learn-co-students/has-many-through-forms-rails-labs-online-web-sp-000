@@ -16,10 +16,17 @@
   <% users = @post.comments.collect { |c| c.user_id } %>
 
   <% users.uniq.each do |user| %>
-<<<<<<< HEAD
+
     <li><%= User.find(user).username %></li>
-=======
+
     <li><%= link_to User.find(user).username, user_path(user) %></li>
->>>>>>> 4631a50ff81c483a0518aa0701f9447d6155817b
+
   <% end %>
 </ul>
+
+<%= form_for @comment do |f| %>
+  <%= f.label "Comment" %>
+  <%= f.text_field :content %>
+  <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+  <%= f.submit %>
+<% end %>
