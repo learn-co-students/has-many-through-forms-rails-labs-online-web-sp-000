@@ -1,1 +1,21 @@
 
+
+
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %></p>
+
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.content %></li>
+  <% end %>
+</ul>
+
+<ul>
+
+  <% users = @post.comments.collect { |c| c.user_id } %>
+
+  <% users.uniq.each do |user| %>
+    <li><%= User.find(user).username %></li>
+  <% end %>
+</ul>
