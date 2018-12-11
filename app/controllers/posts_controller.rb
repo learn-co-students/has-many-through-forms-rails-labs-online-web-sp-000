@@ -11,10 +11,13 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    3.times do
+      @post.categories.build(:name => "sample category")
+    end
   end
 
   def create
-  
+
     post = Post.create(post_params)
 
     redirect_to post
