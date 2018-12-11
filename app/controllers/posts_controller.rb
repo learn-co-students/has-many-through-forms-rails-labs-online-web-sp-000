@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   end
 
   def create
+  
     post = Post.create(post_params)
 
     redirect_to post
@@ -26,7 +27,7 @@ class PostsController < ApplicationController
   end
 end
 
-# 
+#
 # {"utf8"=>"✓",
 #  "authenticity_token"=>
 #   "y/ZgWgVmdGLnjMEEzP3W683cp26Nq/GAcD0vpRS4By9eIXd/7Lzjm9rYbUxwTu8mZfSDdYdJ4Bu1oLZS0CgXvA==",

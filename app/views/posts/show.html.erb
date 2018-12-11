@@ -2,7 +2,12 @@
 
 <p><%= @post.content %></p>
 
-
+Categories:<br />
+<ul>
+  <% @post.categories.each do |c| %>
+    <li><%= c.name %></li>
+  <% end %>
+</ul>
 
 
 

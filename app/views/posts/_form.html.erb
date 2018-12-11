@@ -10,6 +10,20 @@
     <%= f.text_field :content %>
   </p>
 
-  
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name)       #   collection_check_boxes(:post, :author_ids, Author.all, :id, :name_with_initial)   ### :post can be omitted cuz in form
+  # Will generate a checkbox named post[category_ids][] for each category in Category.all
+  # it will use the :id as the value for the checkbox, and the :name method as the label for the checkbox
+  collection_check_boxes(:post, :author_ids, Author.all, :id, :name_with_initial)
+  <% Category.all.each do |c| %>
+    <p>
+      <label for="category_id_<%= c.id %>"><%= c.name %></label>
+      <input type="checkbox" name="post[category_ids][]" value="<%= c.id %>" id="category_id_<%= c.id %>">
+    </p>
+  <% end %>
+
+  <input type="text" id="post_categories_attributes_0_name" name="post[categories_attributes][0][name]" />
+  <input type="text" id="post_categories_attributes_1_name" name="post[categories_attributes][1][name]" />
+
+  <%= f.submit %>
 
 <% end %>
