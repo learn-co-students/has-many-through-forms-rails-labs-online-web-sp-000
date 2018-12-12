@@ -1,23 +1,5 @@
 # Has Many Through Forms Rails Labs
 
-<% Category.all.each do |c| %>
-  <p>
-    <label for="category_id_<%= c.id %>"><%= c.name %></label>
-    <input type="checkbox" name="post[category_ids][]" value="<%= c.id %>" id="category_id_<%= c.id %>">
-  </p>
-<% end %>
-
-<input type="text" id="post_categories_attributes_0_name" name="post[categories_attributes][0][name]" />
-<input type="text" id="post_categories_attributes_1_name" name="post[categories_attributes][1][name]" />
-
-
-
-rspec ./spec/features/comments_spec.rb:12 # comments creates a comment with an existing user
-rspec ./spec/features/comments_spec.rb:19 # comments creates a comment and a new user
-rspec ./spec/features/posts_spec.rb:19 # Posts new can create a post with a previously created category
-rspec ./spec/features/posts_spec.rb:25 # Posts new can create a post with a brand new category
-rspec ./spec/features/posts_spec.rb:31 # Posts new can create a post with a brand new category and an existing category
-rspec ./spec/features/users_spec.rb:14 # users show page should link to all of the posts the user commented on
 
 ## Overview
 
