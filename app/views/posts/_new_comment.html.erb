@@ -1,0 +1,17 @@
+<%= fields_for :comments, @post.comments.build do |f| %>
+  <h3><%= f.label 'New Comment' %> </h3>
+  
+  <%= f.label 'Select a user:' %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %> 
+  <br><br>
+
+  <%= f.label 'Or create a new user:' %>
+  <%= f.fields_for :users, @post.users.build do |f| %>
+    <%= f.text_field :username %>
+  <% end %>
+  <br><br>
+
+  <%= f.text_area :content %>
+  <br>
+  <%= f.submit 'Save Comment' %>
+<% end %>
