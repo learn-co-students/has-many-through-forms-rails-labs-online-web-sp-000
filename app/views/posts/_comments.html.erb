@@ -1,0 +1,15 @@
+<h2>Comments:</h2>
+<p><i>Read at your own peril!</i></p>
+
+  <ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.content %></li>
+  <% end %>
+  </ul>
+
+  Users who have commented on this post:
+  <ul>
+  <% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+  </ul>
