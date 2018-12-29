@@ -1,4 +1,11 @@
 <h1><%= @post.title %></h1>
+Categories:
+<ul>
+
+<% @post.categories.each do |categ| %>
+  <li><%= categ.name %></li>
+<% end %>
+</ul><br>
 <p><%= @post.content %></p>
 <h2>Comments:</h2>
 <p><i>Read at your own peril!</i></p>

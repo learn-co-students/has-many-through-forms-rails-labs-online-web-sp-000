@@ -11,6 +11,9 @@ Categories: <br>
 <br><br>
   
   <%= f.label "New Category: " %>
-  <%= text_field 'new_category', 'category[name]' %>  <br><br>
+  <%= f.fields_for :categories, @post.categories.build do |fields| %>
+    <%= fields.text_field :name %>
+  <% end %>
+  <br>
   <%= f.submit %>
 <% end %>
