@@ -1,1 +1,12 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<h2>Comments:</h2>
+<p><i>Read at your own peril!</i></p>
+
+
+<% @post.comments.each do |comment| %>
+  <%= comment.content %> <br>
+  <i>by <%= comment.user_name %></i>
+<% end %>
+
 
