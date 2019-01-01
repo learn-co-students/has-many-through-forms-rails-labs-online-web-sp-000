@@ -1,18 +1,20 @@
-<%= form_for @comment do |f| %>
-  <h3><%= f.label 'New Comment' %> </h3>
-  
-  <%= f.label 'Select a user:' %>
-  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %> 
-  <br><br>
+<%= form_for @post do |f| %>
+  <%= f.fields_for :comment do |c| %>
+    <h3><%= c.label 'New Comment' %> </h3>
+    
+    <%= c.label 'Select a user:' %>
+    <%= c.collection_select :user_id, User.all, :id, :username, include_blank: true %> 
+    <br><br>
 
-  <%= f.label 'Or create a new user:' %>
-  <%= f.fields_for :users, @post.users.build do |f| %>
-    <%= f.text_field :username %>
+    <%= c.label 'Or create a new user:' %>
+    <%= c.fields_for :users, @post.users.build do |u| %>
+      <%= u.text_field :username %>
+    <% end %>
+    <br><br>
+
+    <%= c.label 'Your comment:' %> <br>
+    <%= c.text_area :content %>
+    <br>
   <% end %>
-  <br><br>
-
-  <%= f.label 'Your comment:' %> <br>
-  <%= f.text_area :content %>
-  <br>
   <%= f.submit 'Create Comment' %>  
 <% end %>

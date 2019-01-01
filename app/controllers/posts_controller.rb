@@ -16,12 +16,21 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
+    binding.pry
+    redirect_to post
+  end
+
+  def update
+    post = Post.find(params[:id])
+    binding.pry
+    post.update(post_params)
+    binding.pry
     redirect_to post
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comment_attributes: [:content])
   end
 end
