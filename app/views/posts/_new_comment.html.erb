@@ -1,4 +1,4 @@
-<%= fields_for :comments, @post.comments.build do |f| %>
+<%= form_for @comment do |f| %>
   <h3><%= f.label 'New Comment' %> </h3>
   
   <%= f.label 'Select a user:' %>
@@ -11,7 +11,8 @@
   <% end %>
   <br><br>
 
+  <%= f.label 'Your comment:' %> <br>
   <%= f.text_area :content %>
   <br>
-  <%= f.submit 'Save Comment' %>
+  <%= f.submit 'Create Comment' %>  
 <% end %>
