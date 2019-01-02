@@ -1,1 +1,11 @@
+<h1><%= @post.title %></h1>
 
+Categories:
+<ul><% @post.categories.each do |categ| %>
+  <li><%= categ.name %></li>
+<% end %></ul>
+
+<p><%= @post.content %></p>
+
+<%= render 'comments' %>
+<%= render 'new_comment' %>

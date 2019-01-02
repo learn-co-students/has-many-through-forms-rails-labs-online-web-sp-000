@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @categories = Category.all
+    @comment = @post.comments.build(content:"")
   end
 
   def create
@@ -16,9 +18,15 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+  def update
+    post = Post.find(params[:id])
+    post.update(post_params)
+    redirect_to post
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comments_attributes: [:content, :users])
   end
 end
