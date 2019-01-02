@@ -8,8 +8,10 @@ class Post < ActiveRecord::Base
 
   def comments_attributes=(comment_attributes)
     comment_attributes.values.each do |attr|
+      binding.pry
       comment = Comment.create(attr)
       self.comments << comment
     end
   end
+  
 end

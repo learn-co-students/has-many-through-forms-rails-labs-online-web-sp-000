@@ -9,6 +9,13 @@ describe 'comments', type: 'feature' do
     visit post_path(@post)
   end
 
+  xit 'creates a comment and a new user (regardless of display)' do
+    fill_in('comment_content', with: 'i agree')
+    fill_in('comment_user_attributes_username', with: 'CoolPerson25')
+    click_button('Create Comment')
+    expect(page).to have_content("CoolPerson25 says: i agree")
+  end
+
   it 'creates a comment with an existing user' do
     fill_in('comment_content', with: 'great post!')
     select(@user.username, from: 'comment_user_id')
