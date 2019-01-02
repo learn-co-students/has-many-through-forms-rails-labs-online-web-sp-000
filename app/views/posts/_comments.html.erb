@@ -1,8 +1,9 @@
 <h2>Comments:</h2>
   <ul>
   <% @post.comments.each do |comment| %>
-    <li><% if comment.user %>
-      <%= comment.user_name %> says:
+    <li>
+    <% if comment.user %>
+      <%= comment.user_name %> says: 
     <% end %>
     <%= comment.content %></li>
   <% end %>
