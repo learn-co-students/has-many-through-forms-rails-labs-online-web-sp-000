@@ -1,8 +1,14 @@
 <h1><%= @post.title %></h1>
 
 <p>
-  <%= @post.content %>br
+  <%= @post.content %><br>
+
+  <%= form_for @new_comment do |f| %>
+     New Comment: <%= f.text_field :content %>
+    <%= f.submit %>
+  <% end %>
+  <p>Comments:</p><br>
   <% @post.comments.each do |comment| %>
-    <%= comment.content %> -
+    <%= comment.content %>
   <% end %>
 </p>
