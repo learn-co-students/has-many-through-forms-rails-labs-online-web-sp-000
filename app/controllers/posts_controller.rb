@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    @new_comment = Comment.new
+    @users = User.all
   end
 
   def index
