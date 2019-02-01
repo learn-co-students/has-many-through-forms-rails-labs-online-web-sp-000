@@ -21,13 +21,8 @@ Categories: <br>
   <% end %>
 
   <p>Comments:</p><br>
-  <% @post.comments.group_by(&:user).each do |user, comments| %>
-    <% comments.each do |comment| %>
-      <% if comment.id %>
-        <%= link_to user.username, user %>
-        <% comments.each do |real_comment| %>
-          <pre>says: <%= real_comment.content %><br></pre>
-        <% end %>
-      <% end %>
+  <% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user %> says: <% user.comments.each do |comment| %>
+      <%= comment.content %><br>
     <% end %>
   <% end %>
