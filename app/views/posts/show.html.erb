@@ -9,7 +9,7 @@
 <% end %>
 <br>
 <h3> users </h3>
-<% @post.users.each do |u| %>
+<% @post.users.distinct.each do |u| %>
 <%= link_to u.username, user_path(u) %>
 <% end %>
 <h3>Comment</h3>
