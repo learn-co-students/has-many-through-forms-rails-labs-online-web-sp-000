@@ -2,6 +2,10 @@
   <%= @post.title %>
 </h2>
 
+<% @post.categories.each do |cat| %>
+  <%= cat.name %>
+<% end %>
+
 <p>
   <%= @post.content %>
 </p>
@@ -13,11 +17,12 @@
 <%= form_for Comment.new do |ff| %>
   <%= ff.hidden_field :post_id, :value => @post.id %>
   <%= ff.text_field :content %>
-  <%= ff.collection_select(:user_id, User.all, :id, :username) %>
 
-  <%= fields_for :user do |user| %>
+  <%= ff.fields_for :user, User.new do |user| %>
     <%= user.text_field :username %>
   <% end %>
+
+  <%= ff.collection_select(:user_id, User.all, :id, :username, include_blank: "select user") %>
 
   <%= ff.submit %>
 <% end %>

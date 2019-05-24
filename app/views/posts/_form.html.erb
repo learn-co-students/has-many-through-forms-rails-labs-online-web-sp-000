@@ -2,9 +2,10 @@
 <%= form_for @post do |ff| %>
   <%= ff.text_field :title %>
   <%= ff.text_field :content %>
+  <%= ff.collection_check_boxes :category_ids, Category.all, :id, :name %>
 
-  <% Category.all.each do |cat| %>
-    <%= ff.check_box :category_ids, cat.name, nil %>
+  <%= ff.fields_for :category_ids, Category.new do |cat| %>
+    <%= cat.text_field :name %>
   <% end %>
 
   <%= ff.submit %>
