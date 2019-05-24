@@ -1,1 +1,23 @@
+<h2>
+  <%= @post.title %>
+</h2>
 
+<p>
+  <%= @post.content %>
+</p>
+
+<% @post.users.each do |user| %>
+  <%= link_to user.username, user_path(user) %> says: <%= user.comments.all.first.content %>
+<% end %>
+
+<%= form_for Comment.new do |ff| %>
+  <%= ff.hidden_field :post_id, :value => @post.id %>
+  <%= ff.text_field :content %>
+  <%= ff.collection_select(:user_id, User.all, :id, :username) %>
+
+  <%= fields_for :user do |user| %>
+    <%= user.text_field :username %>
+  <% end %>
+
+  <%= ff.submit %>
+<% end %>

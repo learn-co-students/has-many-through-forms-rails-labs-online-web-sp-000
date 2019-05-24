@@ -1,1 +1,11 @@
 
+<%= form_for @post do |ff| %>
+  <%= ff.text_field :title %>
+  <%= ff.text_field :content %>
+
+  <% Category.all.each do |cat| %>
+    <%= ff.check_box :category_ids, cat.name, nil %>
+  <% end %>
+
+  <%= ff.submit %>
+<% end %>
