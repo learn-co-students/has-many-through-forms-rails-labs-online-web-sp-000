@@ -1,1 +1,21 @@
+Title: <%= @post.title %><br />
+Content: <%= @post.content %><br />
+Comments:
+<% @post.comments.each do |comment| %>
+  <%= comment.content %><br />
+  <ul>
+    <li><%= comment.user.name.uniq %><br /></li>
+  </ul>
+<% end %>
+<%= form_for @comment do |f| %>
+  <%= f.label "Content" %><br />
+  <%= f.text_area :content %><br />
+  <p>Choose an user</p>
+  <%= f.collection_select :user_id, User.order(:name),:id,:name, include_blank: true %><br />
+  <p>Create a new user</p>
+  <%= f.fields_for :users, comment.users.build do |users_fields| %>
+    <%= users_fields.text_field :username %>
+  <% end %>
 
+  <%= f.submit %>
+<% end %>
