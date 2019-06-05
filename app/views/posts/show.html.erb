@@ -1,8 +1,12 @@
 Title: <%= @post.title %><br />
 Content: <%= @post.content %><br />
+Categories:
+<% @post.categories.each do |category| %>
+  <%= category.name %><br />
+<% end %>
 Comments:
 <% @post.comments.each do |comment| %>
-  <p><%= comment.user.username %> says: <%= comment.content %></p>
+  <p><%= comment.user.username if comment.user %> says: <%= comment.content %></p>
 <% end %>
 <p>Users</p>
 <ul>
@@ -15,10 +19,11 @@ Comments:
   <%= f.label "Content" %><br />
   <%= f.text_area :content %><br />
   <p>Choose an user</p>
-  <%= f.collection_select :user_id, User.order(:username),:id,:username, include_blank: true %><br />
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br />
   <p>Create a new user</p>
   <%= f.fields_for :user, @comment.build_user do |user| %>
     <%= user.text_field :username %>
   <% end %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <%= f.submit %>
 <% end %>
