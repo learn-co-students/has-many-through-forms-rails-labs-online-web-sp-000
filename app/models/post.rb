@@ -9,7 +9,8 @@ class Post < ActiveRecord::Base
   def comments_attributes=(comments_attributes)
     comments_attributes.values.each do |comment_attribute|
       comment = Comment.find_or_create_by(comment_attribute)
-      self.comments << comment
+      #self.comments << comment
+      self.comments.build(:content => comment)
     end
   end
 
