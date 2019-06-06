@@ -13,12 +13,12 @@ class PostsController < ApplicationController
 
   def create
     post = Post.create(post_params)
-    redirect_to post
+    redirect_to post_path(post)
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], user_ids:[], users_attributes: [:username, :email], comments_attributes: [:content])
   end
 end
