@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    @users = @post.post_commentors
   end
 
   def index
@@ -16,9 +17,16 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+  def edit
+  end
+
+  def update
+    raise params.inspect
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, user_ids:[], comments_user_attributes: [:username])
   end
 end
