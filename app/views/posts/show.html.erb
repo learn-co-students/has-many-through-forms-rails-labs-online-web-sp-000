@@ -11,22 +11,17 @@
   <%= link_to user.username, user_path(user) %><br>
   <% end %>
 
-<%= form_for @post do |f| %>
-  <%= fields_for :comment do |comment_fields| %>
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id %>
+    <%= f.label :content %><br>
+    <%= f.text_field :content %><br><br>
 
-    <%= comment_fields.label :content %><br>
-    <%= comment_fields.text_field :content %><br><br>
+    <%= f.label :user %><br>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
 
-    <%= comment_fields.label :user %><br>
-    <%= comment_fields.text_field :user_username, list: "users_autocomplete" %>
-    <datalist id="users_autocomplete">
-      <% User.all.each do |user| %>
-      <option value="<%= user.username %>">
-      <% end %>
-    </datalist>
-  <% end %><br>
-
-
+    <%= fields_for :user, @post.comments.last.build_user do |user_fields| %>
+      <% user_fields.text_field :username %>
+    <% end %>
 
   <%= f.submit "Create Comment" %>
 <% end %>
