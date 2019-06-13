@@ -21,12 +21,11 @@ class PostsController < ApplicationController
   end
 
   def update
-    raise params.inspect
   end
 
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, user_ids:[], comments_user_attributes: [:username])
+     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
 end
