@@ -2,27 +2,30 @@
 
 <h2><%= @post.content %></h2>
 
-<% @post.comments.each do |comment| %>
-  <h3><%= comment.content + "-" + comment.user.username %></h3>
-<% end %>
+<ul>
+<% @post.comments.collect do |comment| %>
+  <%= link_to comment.user.username, user_path(comment.user) %><br>
+  <% comment.user.comments.collect do |comment| %>
+    <%= "says: " + "#{comment.content}" %><br>
+  <% end %><br><br>
+<% end.uniq! %> #something is not unique here
+</ul>
 
-<h4> All commentors </h4>
-  <% @users.each do |user| %>
-  <%= link_to user.username, user_path(user) %><br>
-  <% end %>
 
-<%= form_for @post.comments.build do |f| %>
+
+<%= form_for @comment do |f| %>
     <%= f.hidden_field :post_id, :value => @post.id %>
 
     <%= f.label :content %><br>
     <%= f.text_field :content %><br><br>
 
     <%= f.label :user %><br>
-    <%= f.collection_select(:user, User.all, :id, :username) %>
+    <%= f.collection_select(:user_id, User.all, :id, :username) %>
 
-    <%= fields_for :username do |user_fields| %>
+    <%= f.fields_for :user do |user_fields| %>
       <% user_fields.text_field :username %>
     <% end %>
+    <br><br>
 
   <%= f.submit "Create Comment" %>
 <% end %>
