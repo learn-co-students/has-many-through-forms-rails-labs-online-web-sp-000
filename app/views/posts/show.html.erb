@@ -3,12 +3,13 @@
 <h2><%= @post.content %></h2>
 
 <ul>
-<% @post.comments.collect do |comment| %>
-  <%= link_to comment.user.username, user_path(comment.user) %><br>
-  <% comment.user.comments.collect do |comment| %>
-    <%= "says: " + "#{comment.content}" %><br>
+<% users = @post.comments.collect {|comment| comment.user}.uniq %>
+<% users.collect do |user| %>
+  <%= link_to user.username, user_path(user) %><br>
+  <% user.comments.collect do |comment| %>
+    <li> <%= "says: " + "#{comment.content}" %></li>
   <% end %><br><br>
-<% end.uniq! %> #something is not unique here
+<% end %>
 </ul>
 
 
