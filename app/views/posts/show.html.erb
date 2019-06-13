@@ -6,11 +6,9 @@
 <% users = @post.comments.collect {|comment| comment.user}.uniq %>
 <% users.collect do |user| %>
   <li><%= link_to user.username, user_path(user) %></li>
-  <ul>
   <% user.comments.collect do |comment| %>
-    <li> <%= "says: " + "#{comment.content}" %></li>
+    <%= "says: " + "#{comment.content}" %><br>
   <% end %><br><br>
-  </ul>
 <% end %>
 </ul>
 
