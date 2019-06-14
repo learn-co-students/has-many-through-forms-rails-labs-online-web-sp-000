@@ -2,6 +2,10 @@
 
 <h2><%= @post.content %></h2>
 
+<% @post.categories.collect do |category| %>
+  <%= category.name %>
+  <% end %>
+
 <ul>
 <% users = @post.comments.collect {|comment| comment.user}.uniq %>
 <% users.collect do |user| %>
