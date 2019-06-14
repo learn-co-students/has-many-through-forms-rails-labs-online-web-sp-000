@@ -6,6 +6,7 @@ class Post < ActiveRecord::Base
 
   accepts_nested_attributes_for :comments
   accepts_nested_attributes_for :users
+  accepts_nested_attributes_for :categories
 
 
 def post_commentors
