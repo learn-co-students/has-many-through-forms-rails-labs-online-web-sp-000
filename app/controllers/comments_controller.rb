@@ -1,7 +1,6 @@
 class CommentsController < ApplicationController
 
   def create
-    # binding.pry
     if comment_params[:user_attributes]["username"].empty?
       comment = Comment.create(params.require(:comment).permit(:content, :post_id, :user_id))
       redirect_to comment.post
@@ -14,7 +13,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    # binding.pry
     params.require(:comment).permit(:content, :post_id, :user_id, user_attributes:[:username])
   end
 end

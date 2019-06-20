@@ -10,7 +10,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    # @comment.user.build(username: "sdfs")
   end
 
   def create

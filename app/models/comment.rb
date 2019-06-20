@@ -1,14 +1,9 @@
 class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
-  accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :user, reject_if: :any_blank?
 
-  # def user_attributes=(username)
-  #   # binding.pry
-  #   if !username.empty?
-  #     self.user = User.find_or_create_by(username: username)
-  #     self.user.update(username)
-  #   end
-  # end
-
+  def any_blank?(att)
+    !att.none?.blank? && new_record?
+  end
 end

@@ -1,10 +1,17 @@
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<p>Categories: 
+<% @post.categories.each do |c| %>
+    <%= c.name %> 
+<% end %>
+
+
 <h3>Post Comment</h3>
 
 <%= form_for @comment do |f| %>
     <%= f.text_area :content %><br />
-    <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => ""} %>
+    Select User:
+    <%= f.collection_select :user_id, User.all, :id, :username, {:include_blank => ""} %><br />
     <%= f.fields_for :user, @comment.build_user do |user_fields| %>
         <%= user_fields.text_field :username %>
     <% end %>
@@ -13,11 +20,12 @@
     <%= f.submit %>
 <% end %>
 
-<% @post.comments.each do |comment| %>
-    <% # binding.pry %>
-    <% if !comment.content.blank? %>
-    <p><%= link_to comment.user.username, user_path(comment.user) %> says: <%= comment.content %></p>
+<% @post.users.uniq.each do |user| %>
+    <p><%= link_to user.username, user_path(user) %> says: 
+    <% user.comments.each do |comment| %>
+        <%= comment.content if comment.post_id == @post.id %>
     <% end %>
+    </p>
 <% end %>
-<% # binding.pry %>
+</p>
 
