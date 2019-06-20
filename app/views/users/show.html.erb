@@ -1,1 +1,4 @@
-
+You comented on these posts: <br />
+<% @user.comments.each do |comment| %>
+    <p><%= link_to comment.post.title, post_path(comment.post) %> <%= comment.content %></p>
+<% end %>
