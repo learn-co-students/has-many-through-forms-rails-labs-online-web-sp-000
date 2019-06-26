@@ -1,24 +1,33 @@
 class PostsController < ApplicationController
-  def show
-    @post = Post.find(params[:id])
-  end
 
-  def index
-    @posts = Post.all
-  end
+    before_action :find_post, only: [:show, :edit, :update, :destroy]
 
-  def new
-    @post = Post.new
-  end
+   def show
+       @comment = Comment.new
+       @user = User.new
+   end
 
-  def create
-    post = Post.create(post_params)
-    redirect_to post
-  end
+   def index
+       @posts = Post.all
+   end
 
-  private
+   def new
+       @post = Post.new
+   end
 
-  def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
-  end
+   def create
+       post = Post.create(post_params)
+       redirect_to post
+   end
+
+   private
+
+   def post_params
+       params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+   end
+
+   def find_post
+       @post = Post.find(params[:id])
+   end
+
 end
