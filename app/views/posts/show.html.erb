@@ -1,1 +1,20 @@
+<h1><%= @post.title %></h1>
+<hr>
+<h3>Post No. <%= @post.id %></h3>
+<p><%= @post.content %></p>
+<h5><%= @post.created_at %></h5>
+<hr>
+<h3>Comments:</h3>
+<%= form_for @comment do |f| %>
+    <%= f.text_area :content %>
+    <br>
+    <%= f.submit %>
+<% end %>
+<h3>Post by:</h3>
+<%= form_for @user do |f| %>
+    <%= f.label :user %>
+    <%= f.select :username, User.all, include_blank: true  %>
 
+    <br>
+    <%= f.submit %>
+<% end %>
