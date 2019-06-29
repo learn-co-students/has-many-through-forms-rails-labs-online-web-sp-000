@@ -16,6 +16,12 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+def update
+    post = Post.update(post_params)
+    redirect_to post
+  end
+
+
   private
 
   def post_params
