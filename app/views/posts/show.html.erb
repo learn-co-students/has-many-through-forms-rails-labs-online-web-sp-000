@@ -1,5 +1,5 @@
 <%= form_for @post do |f| %>
-    <%= f.form_for @post.comment, @post.comments.build do |comments_fields| %>
+    <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
         <%= comments_fields.text_field :content %>
     <% end %>
 <% end %>
