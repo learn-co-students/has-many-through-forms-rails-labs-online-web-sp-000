@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories, reject_if: :all_blank
 
   def comments_users
-    a = self.comments.collect {|c| c.user if c.user != nil}
-    a.uniq!
+    a = self.comments.collect {|c| c.user if c.user.id != nil}
+    a.compact.uniq!
   end
 end
