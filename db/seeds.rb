@@ -16,3 +16,5 @@ post = Post.create(title: "New Post", content:"testestestestestest")
 comment = post.comments.create(content: "great post!")
 comment.user = natedogg
 comment.save
+
+knowledge = Category.create(name: "knowledge")
