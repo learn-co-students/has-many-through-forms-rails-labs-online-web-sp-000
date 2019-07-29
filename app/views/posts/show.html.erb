@@ -5,6 +5,7 @@
 <% end %>
 <% if @post.comments_users %>
     <% @post.comments_users.each do |user| %>
+    <% binding.pry %>
         <%= link_to user.username, user_path(user) %>
     <% end %>
 <% end %>
