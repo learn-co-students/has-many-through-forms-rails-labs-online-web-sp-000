@@ -1,16 +1,20 @@
 Write a comment!
 <%= form_for @comment do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %>
-    Content: <%= f.text_area :content %> <br>
+    Content: <%= f.text_area :content %> <br><br>
     User: <%= f.collection_select :user_id, User.all, :id, :username %> <br>
-    New user: <%= f.fields_for :user_id, @user do |categories_fields| %>
-        <%= categories_fields.text_field :username %>
+    New user: <%= f.fields_for :user, @user do |user_fields| %>
+        <%= user_fields.text_field :username %>
     <% end %> <br>
     <%= f.submit %>
 <% end %>
 <br>
 <br>
-<%= @post.comments.each do |comment| %>
+<% @post.comments.each do |comment| %>
     <%# binding.pry %>
-    <%= comment.user.username %> says: <%= comment.content %>
+    <% if comment.id %>
+    <div>
+        <p><%= comment.user.username %> says: <%= comment.content %></p>
+    </div>
+    <% end %>
 <% end %>
