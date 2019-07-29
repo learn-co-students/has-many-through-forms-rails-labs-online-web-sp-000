@@ -15,8 +15,12 @@ class PostsController < ApplicationController
   end
 
   def create
-    binding.pry
+    #binding.pry
     post = Post.create(post_params)
+    if post.categories.empty?
+      nil_category = Category.find_or_create_by(name: "")
+      post.categories << nil_category
+    end
     redirect_to post
   end
 
