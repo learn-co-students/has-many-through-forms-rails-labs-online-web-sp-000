@@ -1,1 +1,40 @@
+<h1><%= @post.title %></h1>
 
+<h3> Categories:
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</h3>
+
+<p><%= @post.content %></p>
+
+<% @post.comments.each do |comment| %>
+  <p><%= comment.user.username if !comment.user.nil? %> says: <%= comment.content %>
+  </p>
+<% end %><br>
+
+<h5>Add a comment to this post:</h5>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.label :content %><br>
+  <%= f.text_area(:content, size: '50x10') %><br><br>
+  <%= f.label "Select a User" %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
+
+  <%= f.fields_for :user, @post.users.build do |user_form| %>
+    <%= user_form.label :username %><br>
+    <%= user_form.text_field :username %><br><br>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
+
+<h3>People who have made comments here</h3>
+<% if !@post.commentors.empty? %>
+  <ul>
+    <% @post.commentors.each do |commentor| %>
+      <li><%= link_to commentor.username, user_path(commentor) %></li>
+    <% end %>
+  </ul>
+<% end %>
