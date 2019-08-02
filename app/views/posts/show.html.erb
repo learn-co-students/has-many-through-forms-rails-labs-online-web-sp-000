@@ -1,1 +1,36 @@
+<h1><%= @post.title %></h1>
 
+<h2><%= @post.content %></h2>
+
+<% @post.categories.collect do |category| %>
+  <%= category.name %>
+  <% end %>
+
+<ul>
+<% users = @post.comments.collect {|comment| comment.user}.uniq %>
+<% users.collect do |user| %>
+  <li><%= link_to user.username, user_path(user) %></li>
+  <% user.comments.collect do |comment| %>
+    <%= "says: " + "#{comment.content}" %><br>
+  <% end %><br><br>
+<% end %>
+</ul>
+
+
+
+<%= form_for @comment do |f| %>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+
+    <%= f.label :content %><br>
+    <%= f.text_field :content %><br><br>
+
+    <%= f.label :user %><br>
+    <%= f.collection_select(:user_id, User.all, :id, :username) %>
+
+    <%= f.fields_for :user do |user_fields| %>
+      <% user_fields.text_field :username %>
+    <% end %>
+    <br><br>
+
+  <%= f.submit "Create Comment" %>
+<% end %>
