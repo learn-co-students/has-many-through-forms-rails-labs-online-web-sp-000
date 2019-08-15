@@ -24,14 +24,15 @@ New Comment:
   <%= form_for Comment.new do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %>
 
-    <%= f.label "Content" %>
-    <%= f.text_area :content %>
+    <%= f.label "Content:" %>
+    <%= f.text_area :content %><br><br>
 
     <%= f.label "Username:" %>
     
-    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Please Select'} %>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Please Select'} %><br>
 
     <%= f.fields_for :user_attributes do |user| %>
+      <%= user.label "Username: " %>
       <%= user.text_field :username %>
     <% end %>
 
