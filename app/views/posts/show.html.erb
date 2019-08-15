@@ -21,7 +21,7 @@ Users:
 
 New Comment:
   <br>
-  <%= form_for comment = Comment.new do |f| %>
+  <%= form_for Comment.new do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %>
 
     <%= f.label "Content" %>
@@ -30,13 +30,6 @@ New Comment:
     <%= f.label "Username:" %>
     
     <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Please Select'} %>
-
-    <%= f.text_field :user_name, list: "users_autocomplete" %>
-    <datalist id="users_autocomplete">
-      <% User.all.each do |user| %>
-          <option value="<%= user.username %>">
-      <% end %>
-    </datalist><br>
 
     <%= f.fields_for :user_attributes do |user| %>
       <%= user.text_field :username %>
