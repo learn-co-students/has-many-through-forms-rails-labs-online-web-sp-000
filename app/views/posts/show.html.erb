@@ -1,4 +1,43 @@
 <%= @post.title %>
 <%= @post.content %>
 
-<%= @post.categories %>
+<ul>
+<% @post.categories.each do |cat| %>
+  <li><%= cat.name %></li>
+<% end %>
+</ul>
+
+<ul>
+  <% @post.comments.each do |comment| %>
+    <%= "#{comment.user.username} says: #{comment.content}" %>
+  <% end %>
+</ul>
+
+<ul>
+<% @post.users.uniq.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+
+<h3>Add a new comment:</h3>
+
+<%= form_for Comment.new do |comment| %>
+
+  <%= comment.hidden_field :post_id, :value => @post.id %>
+  Comment: <%=comment.text_field :content %><br>
+
+  <%= comment.collection_select :user_id, User.all, :id, :username %>
+
+  <%= comment.fields_for :user, User.new do |user| %>
+    <%= user.text_field :username %>
+  <% end %>
+
+  <br>
+  <%= comment.submit %>
+<% end %>
+<br>
+
+
+# comments creates a comment with an existing user
+# comments creates a comment and a new user
