@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   def show
+    @comment = Comment.new
+    @comment.user = User.new
     @post = Post.find(params[:id])
   end
 
@@ -12,8 +14,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+    @post = Post.create(post_params)
+    redirect_to post_path(@post)
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    @post.update(post_params)
+    redirect_to @post
   end
 
   private
@@ -21,4 +29,5 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
+
 end
