@@ -1,1 +1,25 @@
+Post Title: <%= @post.title %><br>
+<p>Post Content: <%= @post.content %></p>
+Categories:
+<ul>
+  <% @post.categories.each do |catg| %>
+   <li> <%= catg.name %> </li>
+  <% end %>
+</ul>
+Comments:
+<ul>
+  <% @post.comments.each do |comt| %>
+   <li><%= comt.user.username%> says: <%= comt.content %> </li> 
+  <% end %>
+</ul>
+Commentators:
+<ul>
+  <% @post.users.uniq.each do |user| %>
+   <li> <%= link_to user.username, user_path(user) %> </li>
+  <% end %>
+</ul>
+<%= render 'posts/partials/new_comment' %>
+
+
+
 
