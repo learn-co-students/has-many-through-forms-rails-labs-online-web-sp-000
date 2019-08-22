@@ -1,11 +1,14 @@
+<h1>Add A New Comment:</h1>
 <%= form_for @comment do |f| %>
   <%= f.label "Content" %>
   <%= f.text_field :content %><br>
   <%= f.label "Select a user" %>
-  <%= f.collection_select :user, User.all, :id, :username %><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br>
   <%= f.label "Or create a new one" %>
-  <%= f.text_field :users_attributes_username %>
+  <%= f.hidden_field :post_id, value: @post.id %>
   <br>
-  
   <%= f.submit %>
 <% end %>
+<%= render 'posts/partials/new_comment' %>
+
+

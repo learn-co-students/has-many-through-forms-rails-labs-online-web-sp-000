@@ -2,15 +2,12 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
 
-  def users_attributes_username=(user_attributes)
-    user_attributes.values.each do |user_attribute|
-      user = User.find_or_create_by(user_attribute)
-      self.users << user
+  def user_attributes=(user_attributes)
+    if !user_id
+      user = User.find_or_create_by(user_attributes)
+      self.user = user
+    else
+      self.user = User.find(user_id)
     end
   end
-
-  def users_attributes_username
-    self.user ? self.user.name : nil
-  end
-
 end
