@@ -24,3 +24,13 @@
   </ul>
 
 <h2>Add a Comment to this Post:</h2>
+  <%= form_for(Comment.new) do |f| %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
+    <%= f.label "Content" %>
+    <%= f.text_area :content %>
+
+    <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+
+
+    <%= f.submit %>
+  <% end %>
