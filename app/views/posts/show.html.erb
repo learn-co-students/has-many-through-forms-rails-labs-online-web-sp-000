@@ -12,7 +12,7 @@
 <h3>Comments:</h3>
   <ul>
     <% @post.comments.each do |comment| %>
-      Comment: <li><%= comment.content %></li>
+      <li><%= comment.user_username %> says: <%= comment.content %></li>
     <% end %>
   </ul>
 
@@ -29,7 +29,10 @@
     <%= f.label "Content" %>
     <%= f.text_area :content %>
 
-    <%= f.collection_check_boxes :user_id, User.all, :id, :username %>
+Select existing username:
+    <%= f.collection_select(:user_id, User.all, :id, :username, {include_blank: true}) %>
+
+Or create a new username:
 
 
     <%= f.submit %>
