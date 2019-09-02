@@ -7,4 +7,5 @@ class Post < ActiveRecord::Base
   def uniq_users
     self.users.distinct!
   end
+
 end
