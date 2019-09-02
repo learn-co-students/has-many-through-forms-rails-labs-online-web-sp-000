@@ -24,8 +24,9 @@
   </ul>
 
 <h2>Add a Comment to this Post:</h2>
-  <%= form_for(Comment.new) do |f| %>
+  <%= form_for(Comment.new, as: @comment) do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
+
     <%= f.label "Content" %>
     <%= f.text_area :content %>
 
@@ -33,7 +34,10 @@ Select existing username:
     <%= f.collection_select(:user_id, User.all, :id, :username, {include_blank: true}) %>
 
 Or create a new username:
-
+    <%= f.fields_for :user, @post.users.build do |user_fields| %>
+      Username: <%= user_fields.text_field :username %>
+      Email: <%= user_fields.text_field :email %>
+    <% end %>
 
     <%= f.submit %>
   <% end %>
