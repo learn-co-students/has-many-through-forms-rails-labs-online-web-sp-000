@@ -4,13 +4,17 @@
   <%= category.name %>
 <% end %>
 <% @post.comments.each do |comment| %>
-  <%= comment.content %>
+  <%= "#{comment.user.username} says: #{comment.content}" %>
 <% end %>
 
-<%= form_for @comment do |f| %>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.label "Content" %>
-  <%= f.text_area :comment_content %>
-  <%= select_tag 'comment_user_id', options_for_select(@users.collect |u| [u.username, u.id]) %>
+  <%= f.text_area :content %>
+  <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "username" %>
+    <%= f.fields_for :user_attributes do |user_builder| %>
+      <%= user_builder.text_field :username %>
+    <% end %>
   <%= f.submit %>
 <% end %>
 
