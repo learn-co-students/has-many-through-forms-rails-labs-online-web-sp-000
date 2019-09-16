@@ -1,0 +1,16 @@
+<%= form_for comment do |f| %>
+    <%= f.label "Content" %>
+    <%= f.text_area :content %>
+
+    <%= f.label "Username" %>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+
+    <%= f.fields_for :user, User.new do |user_fields| %>
+        <%= user_fields.label :username %>
+        <%= user_fields.text_field :username %>
+    <% end %>
+
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+    <%= f.submit %>
+<% end %> 
