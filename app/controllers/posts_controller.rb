@@ -11,11 +11,15 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @category = @post.categories.build
+    @post.categories.build
+    @post.categories.build
+    @post.categories.build
   end
 
   def create
-    # puts params
+    # pry
+    # raise params.inspect
+    puts params
     post = Post.create(post_params)
     redirect_to post
   end

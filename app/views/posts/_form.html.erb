@@ -1,14 +1,16 @@
 
 <%= form_for @post do |f| %>
   <%= f.label "Title:" %>
+  <br>
   <%= f.text_field :title %>
   <br>
   <%= f.label "Content:" %>
-  <%= f.text_field :content %>
+  <br>
+  <%= f.text_area :content %>
   <br>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
   <br>
-  <%= f.fields_for :categories, @category do |category_field| %>
+  <%= f.fields_for :categories, @post.categories do |category_field| %>
     <%= category_field.label "New Category:" %>
     <%= category_field.text_field :name %>
     <br>
