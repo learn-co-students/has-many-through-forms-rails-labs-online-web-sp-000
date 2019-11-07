@@ -7,7 +7,7 @@ describe 'comments', type: 'feature' do
     @post = Post.create(title: "So Awesome", content: "Man am I a great blogger OR WHAT!")
     @user = User.create(username: 'RealBigFish')
     visit post_path(@post)
-  end
+  en
 
   it 'creates a comment with an existing user' do
     fill_in('comment_content', with: 'great post!')
