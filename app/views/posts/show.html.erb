@@ -4,6 +4,10 @@
     <%= comment.user.username %> says: <%= comment.content %> 
 <% end %>
 
+<% @post.categories.each do |category| %>
+    <%= category.name %>
+    <% end %>
+
 <%= form_for @post.comments.build do |f| %>
     <%= f.hidden_field :post_id, :value => @post.id %>
     <%= f.label "Comment content" %>
