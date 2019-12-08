@@ -1,19 +1,45 @@
-<%= @post.title %>
-<%= @post.content %>
+<h1><%= @post.title %></h1>
+
+<p><%= @post.content %></p>
+
+
 <% @post.categories.each do |category| %>
   <div><%= link_to category.name, category_path(category) %></div>
 <% end %>
 
+Commentors:
+<ul>
+<% @post.users.distinct.each do |user| %>
+  <li>
+    <%= link_to user.username, user_path(user) %>
+  </li>
+<% end %>
+</ul>
 
-
+Comments:
+<ul>
 <% @post.comments.each do |comment| %>
+  <li><%= comment.user.username %> says: <%= comment.content %></li>
+<% end %>
+</ul>
 
-  <% if !@users_that_commented.include?(comment.user) %>
-    <% @users_that_commented << comment.user %>
-    <div><%= link_to comment.user.username, user_path(comment.user) %></div>
-  <% else %>
-    <%= comment.user.username %>
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
+  <p>
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+  </p>
+
+  <p>
+  <%= f.fields_for :user, User.new do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
   <% end %>
 
-  <div><%= comment.content %></div>
+
+    <%= f.label :content, "New Comment" %><br>
+    <%= f.text_area :content %>
+  </p>
+  <br/>
+  <%= f.submit %>
+
 <% end %>
