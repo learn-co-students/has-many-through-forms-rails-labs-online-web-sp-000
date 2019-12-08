@@ -1,1 +1,19 @@
+<%= @post.title %>
+<%= @post.content %>
+<% @post.categories.each do |category| %>
+  <div><%= link_to category.name, category_path(category) %></div>
+<% end %>
 
+
+
+<% @post.comments.each do |comment| %>
+
+  <% if !@users_that_commented.include?(comment.user) %>
+    <% @users_that_commented << comment.user %>
+    <div><%= link_to comment.user.username, user_path(comment.user) %></div>
+  <% else %>
+    <%= comment.user.username %>
+  <% end %>
+
+  <div><%= comment.content %></div>
+<% end %>
