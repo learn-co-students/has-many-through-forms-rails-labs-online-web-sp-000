@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :set_post!, only: [:show, :edit, :update]
+
   def show
     @post = Post.find(params[:id])
   end
@@ -16,9 +18,25 @@ class PostsController < ApplicationController
     redirect_to post
   end
 
+  def update
+    binding.pry
+    @post.update(post_params)
+    if @post.valid?
+      @post.save     
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comment:[])
   end
+
+  def set_post!
+    @post = Post.find(params[:id])
+  end
+
 end

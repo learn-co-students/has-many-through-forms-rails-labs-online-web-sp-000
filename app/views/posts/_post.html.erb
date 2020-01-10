@@ -1,0 +1,18 @@
+<div class=post-content>
+  <%= @post.title %>
+  <%= @post.content %>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %><br>
+   <%= @post.comments.each do |c| %>
+      <%= c.content %>
+    <% end %>
+  <%= form_for post do |f| %>
+    <%= f.fields_for :comment, post.comments.build do |comment_content| %>
+      <%= comment_content.text_area :content %>
+      <%= collection_select(:comment, :user_id, User.all, :username, :username, prompt: true) %>
+      <%= comment_content.submit %>
+    <%end%>
+   
+  <% end %>  
+</div>
