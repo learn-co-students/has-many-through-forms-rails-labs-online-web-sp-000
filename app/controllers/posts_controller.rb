@@ -19,7 +19,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    binding.pry
     @post.update(post_params)
     if @post.valid?
       @post.save     
@@ -32,7 +31,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name], comment:[])
+    params.require(:post).permit(:title, :content, category_ids:[], categories_attributes: [:name])
   end
 
   def set_post!
