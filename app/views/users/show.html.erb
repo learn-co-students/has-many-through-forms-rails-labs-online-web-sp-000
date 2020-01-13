@@ -1,1 +1,6 @@
-
+<h1>User Comments</h1>
+<% @user.comments.each do |c| %>
+<p>
+  <%= c.content %>
+</p>
+<% end %>
