@@ -2,11 +2,12 @@
 <% @user.comments.each do |c| %>
 <p>
   <%= c.content %>
+  <% end %>
 </p>
+
 <% @user.posts.each do |p| %>
 <p>
   <%= link_to p.title, post_path(p) %>
   <%= p.content %>
+  <% end %>
 </p>
-
-<% end %>
