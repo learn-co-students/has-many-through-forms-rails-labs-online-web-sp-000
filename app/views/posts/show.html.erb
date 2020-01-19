@@ -17,33 +17,22 @@
 </ul>
 
 <ul>
-  Users : <%= @post.users.each do |u| %>
-  <li><%= u.email %></li>
-  <% end %>
-</ul>
-
-<ul>
   Comments : <%= @post.comments.each do |c| %>
-  <li><%= c.content %></li>
+  <li><%= c.user.username %> says: <%= c.content %></li>
   <% end %>
 </ul>
 
-<h3>New User</h3>
-<%= form_for(@post) do |f| %>
-<p>
-  <%= f.fields_for :user, @post.users.build do |users_fields| %>
-  <%= f.label :username %>
-    <%= users_fields.text_field :username %>
-  <% end %>
-</p>
-<% end %>
 
 <h3>Add Comment</h3>
-<%= form_for(@post) do |f| %>
+<%= form_for(@post.comments.build) do |f| %>
 <p>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
   <%= f.label :content %>
-  <%= f.fields_for :comment, @post.comments.build do |comments_fields| %>
-    <%= comments_fields.text_field :content %>
+  <%= f.text_field :content %>
+  <%= f.fields_for :user, User.new do |users_fields| %>
+  <%= users_fields.label :username %>
+  <%= users_fields.text_field :username %>
   <% end %>
 </p>
 <%= f.submit %>
