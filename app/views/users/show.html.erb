@@ -3,4 +3,10 @@
 <p>
   <%= c.content %>
 </p>
+<% @user.posts.each do |p| %>
+<p>
+  <%= link_to p.title, post_path(p) %>
+  <%= p.content %>
+</p>
+
 <% end %>

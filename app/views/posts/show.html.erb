@@ -1,7 +1,7 @@
 <h1> Post <%= @post.title %></h1>
 
 <p>
-  Content : <%= @post.content %>
+  <h3>Content :</h3><%= @post.content %>
 </p>
 
 <ul>
@@ -11,8 +11,8 @@
 </ul>
 
 <ul>
-  Users : <%= @post.users.each do |u| %>
-  <li><%= u.username %></li>
+  Users : <%= @post.users.uniq.each do |u| %>
+  <li><%= link_to u.username, user_path(u) %></li>
   <% end %>
 </ul>
 
@@ -21,3 +21,24 @@
   <li><%= c.content %></li>
   <% end %>
 </ul>
+
+<h3>New User</h3>
+<%= form_for(@post) do |f| %>
+<p>
+  <%= f.fields_for :user, @post.users.build do |users_fields| %>
+  <%= f.label :username %>
+    <%= users_fields.text_field :username %>
+  <% end %>
+</p>
+<% end %>
+
+<h3>Add Comment</h3>
+<%= form_for(@post) do |f| %>
+<p>
+  <%= f.label :content %>
+  <%= f.fields_for :comment, @post.comments.build do |comments_fields| %>
+    <%= comments_fields.text_field :content %>
+  <% end %>
+</p>
+<%= f.submit %>
+<% end %>
