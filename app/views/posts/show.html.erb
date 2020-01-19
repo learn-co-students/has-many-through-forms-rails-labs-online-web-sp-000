@@ -17,6 +17,12 @@
 </ul>
 
 <ul>
+  Users : <%= @post.users.each do |u| %>
+  <li><%= u.email %></li>
+  <% end %>
+</ul>
+
+<ul>
   Comments : <%= @post.comments.each do |c| %>
   <li><%= c.content %></li>
   <% end %>
