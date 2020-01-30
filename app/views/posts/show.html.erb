@@ -20,7 +20,6 @@
 
 <%= form_for @post.comments.build do |f| %>
   <%= f.hidden_field :post_id %>
-  <p>
     <%= f.collection_select :user_id, User.all, :id, :username %>
   </p>
 
@@ -32,8 +31,7 @@
   <p>
     <%= f.label :content, "New Comment" %><br>
     <%= f.text_area :content %>
-  </p>
-  <br/>
+
   <%= f.submit %>
 <% end %>
 
