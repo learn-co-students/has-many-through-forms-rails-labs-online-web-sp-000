@@ -5,7 +5,10 @@
     <%= category.name %>
   <% end %><br>
   <% @post.comments.each do |c| %>
-    <%= c.user.username %> says: <%= c.content%><br>
+    <%= c.user.username %> says: <%= c.content%><br>    
+  <% end %> 
+  <% @post.users.uniq.each do |u| %>
+    <a href="/users/<%= u.id %>"><%= u.username %></a><br>    
   <% end %> 
 
   <%# <%= form_for post do |f| %> 
