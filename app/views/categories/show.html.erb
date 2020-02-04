@@ -1,0 +1,11 @@
+<h1>Category Detail</h1>
+<h2>Category Name: <%=@category.name%></h2>
+<h3>Posts</h3>
+<ul>
+  <% @category.posts.each do |p| %>    
+    <li>
+      Title: <a href="/posts/<%=p.id%>"><%= p.title %></a>
+    </li>
+  <%end%>
+</ul>
+

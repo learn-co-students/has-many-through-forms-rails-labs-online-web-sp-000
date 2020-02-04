@@ -1,0 +1,27 @@
+<div class=post-content>
+  <%= @post.title %>
+  <%= @post.content %>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %><br>
+  <% @post.comments.each do |c| %>
+    <%= c.user.username %> says: <%= c.content%><br>    
+  <% end %> 
+  <% @post.users.uniq.each do |u| %>
+    <a href="/users/<%= u.id %>"><%= u.username %></a><br>    
+  <% end %> 
+
+  <%# <%= form_for post do |f| %> 
+    <%= form_for post.comments.build do |comment_content| %>
+      <%= comment_content.hidden_field :post_id, value: @post.id %>
+      <%= comment_content.text_area :content %>    
+        
+      <%= collection_select(:comment, :user_id, User.all, :id, :username, prompt: true) %>
+      <%= comment_content.fields_for :user_attributes, User.new do |user_attributes| %>
+        <%= user_attributes.text_field :username %>
+      <% end %> 
+      <%= comment_content.submit %>
+    <%end%>
+   
+  <%# <% end %>  
+</div>
