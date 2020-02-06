@@ -30,7 +30,7 @@
   <%= f.text_area :content %><br><br>
   
   <%= f.label "Existing user" %>
-  <%= f.collection_check_boxes :user_id, User.all, :id, :username %><br><br>
+  <%= f.collection_select :user_id, User.all, :id, :username %><br><br>
 
   <%= f.label "New user" %>
   <%= f.fields_for :user, User.new do |user_field|%>
