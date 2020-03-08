@@ -1,0 +1,8 @@
+<!--page that links to all of the posts associated with a given category.-->
+<% @category.posts.each do |post| %>
+<p>
+    <%= link_to post.title, post_path(post) %>
+</p>
+
+<% end %>
+
