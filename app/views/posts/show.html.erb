@@ -34,6 +34,7 @@ Add a New Comment:
     <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
     <%= f.hidden_field :post_id %>
     <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%= f.label "Username" %>
      <%= user_fields.text_field :username %>
     <% end %>
 
