@@ -1,0 +1,5 @@
+<h1><%= @category.name %></h1><br>
+
+<% @category.posts.each do |post| %>
+    <%= link_to post.title, post_path(post.id) %><br> #Links to the song associated with the given category.
+<% end %>
