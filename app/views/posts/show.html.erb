@@ -6,6 +6,8 @@
 <p>
 Categories: <%= @post.categories.map(&:name).join(' ') %>
 </p>
+
+Comments:
 <ul>
 <% @post.comments.each do |comment| %>
   <li>
@@ -16,7 +18,7 @@ Categories: <%= @post.categories.map(&:name).join(' ') %>
 
 Commentators:
 <ul>
-<% @post.users.each do |user| %>
+<% @post.users.uniq.each do |user| %>
   <li>
     <%= link_to user.username, user_path(user) %>
   </li>
@@ -30,7 +32,7 @@ Commentators:
   </p>
 
   <%= f.fields_for :user, User.new do |user_fields| %>
-    <%= user_fields.text_field :username, id: "comment_user_attributes_username" %>
+    <%= user_fields.text_field :username, id: "comment_user_attributes_username", name: "comment_user_attributes_username" %>
   <% end %>
   
   <p>
