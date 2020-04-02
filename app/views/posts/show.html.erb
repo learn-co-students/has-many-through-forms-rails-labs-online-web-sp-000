@@ -1,1 +1,22 @@
-
+<div class=post-content>
+  <%= @post.title %>
+  <%= @post.content %>
+  <%= @post.categories.each{|c| c.name} %>
+  <% @post.users.uniq.each do |u| %>
+    <%= link_to u.username, u %>
+  <% end %> 
+  <% @post.comments.each do |c| %>
+  <%= c.user.username %> says: <%= c.content %>
+  <% end %>
+</div>
+<%= form_for(@post.comments.build) do |f| %>
+  <%= f.label "Comment" %>
+  <%= f.text_field :content %>
+  <%= f.label "User" %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+  <%= f.hidden_field :post_id %>
+  <%= f.fields_for :user, User.new do |user_f| %>
+    <%= user_f.text_field :username %>
+  <% end %>
+  <%= f.submit %>
+<% end %>
