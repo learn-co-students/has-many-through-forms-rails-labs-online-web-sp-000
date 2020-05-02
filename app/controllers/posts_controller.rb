@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
+    # binding.pry
   end
 
   def index
@@ -9,6 +10,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    # binding.pry
   end
 
   def create
