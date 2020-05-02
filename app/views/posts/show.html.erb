@@ -1,1 +1,62 @@
+<h1><%= @post.title %></h1>
+<p>
+    Categories: 
+    <% @post.categories.each do |cat| %>
+        <%= cat.name %><br>
+    <% end %>
+</p>
+<p><%= @post.content %></p>
+<p>
+    <h3>Comments</h3>
+    <% @post.comments.each do |com| %>
+        <p>
+            <% if com.user != nil %>
+                <%= com.user.username %> says: <%= com.content %>
+            <% else %>
+                <%= com.content %>
+            <% end %>
+        </p>
+    <% end %>
+</p>
 
+<p>
+    <% if !@post.comments.empty? %>
+        Users: 
+        <% unique_users = [] %>
+        <% @post.comments.each do |com| %>
+            <% if !unique_users.include?(com.user) && com.user != nil %>
+                <% unique_users << com.user %>
+            <% end %>
+        <% end %>
+        
+        <% if !unique_users.empty? %>
+            <% unique_users.each do |user| %>
+                <%= link_to user.username, user_path(user) %><br>
+            <% end %>
+        <% else %>
+            <p> None </p>
+        <% end %>
+    <% else %>
+        <p>None</p>
+    <% end %>
+</p>
+
+<h3>Add Comments</h3>
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <p>
+        <%= f.label "New Comment" %><br>
+        <%= f.text_area :content %>
+    </p>
+    <p>
+        Select User:<br>
+        <%= f.collection_select :user_id, User.all, :id, :username, {}, id:'comment_user_id' %>
+    </p>
+    <p>
+        New User:
+        <%= f.fields_for :user, User.new do |user_builder| %>
+            <%= user_builder.text_field :username %>
+        <% end %>
+    <p>
+    <%= f.submit "Create Comment" %>
+<% end %>
