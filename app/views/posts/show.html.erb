@@ -1,1 +1,38 @@
+<h1><%= @post.title %> </h1>
 
+<p> <%= @post.content %> </p> <br><br>
+
+<ul>
+<% @post.categories.each do |c| %>
+  <li><%= link_to c.name, category_path(c) %></li>
+<% end %>
+</ul>
+
+<ul>
+  <% @post.comments.each do |com| %>
+    <li> <%= com.user.username %> says: <%= com.content %> </li>
+  <% end %>
+</ul>
+
+<ul>
+  <% @post.users.uniq.each do |u| %>
+    <li> <%= link_to u.username, user_path(u) %></li>
+  <% end %>
+</ul>
+
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.text_field :user_id, list: "users_autocomplete" %>
+  <datalist id="users_autocomplete">
+    <% User.all.each do |user| %>
+      <option value="<%= user.id %>"><%= user.username %></option>
+    <% end %>
+  </datalist>
+  <%= f.fields_for :user, @post.users.build do |u| %>
+    <%= u.text_field :username %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
