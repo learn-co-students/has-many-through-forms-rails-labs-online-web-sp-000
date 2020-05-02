@@ -1,1 +1,17 @@
-
+<%= form_for @post do |f| %>
+  <%= f.label "Title" %>
+  <%= f.text_field :title %> <br><br>
+  <%= f.label "Content" %>
+  <%= f.text_area :content %> <br><br>
+ <!-- creates checkboxes for existing categories, with value equal to category_id -->
+ <p> Select Category or create new:
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+  <br>
+<!-- creates field to type in new category name and builds association to post -->
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+    <%= categories_fields.label :name, "New Category" %>
+    <%= categories_fields.text_field :name %>
+  <% end %>
+  </p>
+  <%= f.submit %>
+<% end %>
