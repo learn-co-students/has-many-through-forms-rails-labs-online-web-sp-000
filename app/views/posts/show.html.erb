@@ -1,1 +1,22 @@
+<h2><%= @post.title %></h2>
+<%= @post.content %>
+<p><strong>Categories:</strong>
+<ul><% @post.categories.each do |category| %>
+    <%= category.name %>,
+<% end %></ul></p>
+
+<p><strong>Comments:</strong></p>
+<ul><% @post.comments.each do |comment| %>
+    <li><%= comment.user_username %> says: <%= comment.content %></li>
+<% end %></ul>
+
+<p><strong>Commenters:</strong></p>
+<ul><% @post.unique_user_comments.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+<% end %>
+</ul>
+
+<p><strong>Submit a Comment:</strong></p>
+<%= render '/comments/form', comment: Comment.new %>
+
 
