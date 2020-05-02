@@ -1,1 +1,21 @@
 
+<h1> New Post: </h1>
+
+<%= form_for @post do |t| %>
+<%= t.label "Title" %>
+<%= t.text_field :title %>
+<%= t.label "Content" %>
+<%= t.text_area :content %>
+
+Existing Category:
+
+<%= t.collection_check_boxes :category_ids, Category.all, :id, :name %>
+
+New Category:
+
+<%= t.fields_for :categories, post.categories.build do |cat|%>
+<%= cat.text_field :name%>
+
+<% end %>
+<%= t.submit %>
+<% end %>
