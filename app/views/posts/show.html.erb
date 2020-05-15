@@ -7,13 +7,16 @@
   <% end %>
   <br><br>
   Comments: <br>
-  <% @post.comments.each do |comment| %>
-    <%= comment.content %>
-  <% end %>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <li><%=comment.user.username%> says: <%= comment.content %></li>
+    <% end %>
+  </ul>
 
   <br><br>
   Users who have commented: <br>
   <% @post.users.uniq.each do |user| %>
     <%= link_to user.username, user_path(user) %>
   <% end %>
+
 </div>
