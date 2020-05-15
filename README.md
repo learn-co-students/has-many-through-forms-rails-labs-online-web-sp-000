@@ -38,7 +38,7 @@ We've looked at setting up the associations behind posts with comments, categori
 
 + When creating new comments, we should only create a new user if they filled in that input. `accepts_nested_attributes_for` has a `reject_if` option that you can configure to only create new records if all the fields aren't blank.
 + Also, the select box that we use for the users needs to have a blank option –– check out the `include_blank` option for `collection_select`.
-
+`
 ## Resources
 
 + [Accepts Nested Attributes For](http://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html)
