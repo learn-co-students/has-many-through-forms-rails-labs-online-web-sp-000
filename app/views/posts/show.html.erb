@@ -1,1 +1,19 @@
+<div class=post-content>
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+  Categories: <br>
+  <% @post.categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+  <br><br>
+  Comments: <br>
+  <% @post.comments.each do |comment| %>
+    <%= comment.content %>
+  <% end %>
 
+  <br><br>
+  Users who have commented: <br>
+  <% @post.users.uniq.each do |user| %>
+    <%= link_to user.username, user_path(user) %>
+  <% end %>
+</div>
