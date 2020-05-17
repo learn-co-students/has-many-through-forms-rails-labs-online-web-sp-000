@@ -1,8 +1,15 @@
 class CommentsController < ApplicationController
 
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+    if comment_params[:user_attributes][:username].empty?
+      params_minus_attributes = comment_params.except(:user_attributes)
+      comment = Comment.create(params_minus_attributes)
+      redirect_to post_path(comment.post)
+    else
+      comment = Comment.create(comment_params)
+      redirect_to post_path(comment.post)
+    end
+    
   end
 
   private
