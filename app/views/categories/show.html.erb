@@ -1,0 +1,8 @@
+<h1>Category: <%= @category.name %></h1>
+<div style="border: 1px solid black;">
+    <ul>
+        <% @category.posts.each do |post| %>
+            <%= link_to post.title, post_path(post) %>
+        <%end%>
+    </ul>
+</div>
