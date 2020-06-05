@@ -9,7 +9,7 @@ Categories:
 </ul>
 Comments:
 <% @post.comments.each do |comment| %>
-    <p><%= comment.user.username %> said <%= comment.content %></p>
+    <p><%= comment.user.username %> says: <%= comment.content %></p>
 <%end%>
 <br>
 Users:
