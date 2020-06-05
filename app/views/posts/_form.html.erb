@@ -1,13 +1,1 @@
-<h1> New Post </h1>
 
-<%= form_for @post do |f| %>
-<%= f.label :title %>
-<%= f.text_field :title %> <br> <br>
-<%= f.label :content %>
-<%= f.text_area :content %> <br> <br>
-Existing Category: <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %> <br> <br>
-New Category: <%= f.fields_for :categories, post.categories.build do |category|%>
-  <%= category.text_field :name%>
-  <% end %> <br> <br>
-<%= f.submit %>
-<% end %>
