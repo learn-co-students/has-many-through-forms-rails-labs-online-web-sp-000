@@ -6,12 +6,12 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :categories
 
   #build association writer to build association based on nested params 
-#   def categories_attributes=(category_attributes)
-#     # iterate over category attr and determine if need 
-#     # to create new or find existing category 
-#     category_attributes.values.each do |category_name|
-#       category = Category.find_or_create_by(category_name)
-#     end 
-#     self.categories << category
-#   end 
+  # def categories_attributes=(category_attributes)
+  #   # iterate over category attr and determine if need 
+  #   # to create new or find existing category 
+  #   category_attributes.values.each do |category_name|
+  #     category = Category.find_or_create_by(category_name)
+  #   end 
+  #   self.categories << category
+  # end 
 end
