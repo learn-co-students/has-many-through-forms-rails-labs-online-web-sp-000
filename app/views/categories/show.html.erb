@@ -1,0 +1,4 @@
+<h3>Categories#Show</h3> 
+<% @category.posts.each do |post| %>
+<%= link_to post.title, post_path(post) %>
+<% end %>
