@@ -11,12 +11,14 @@
       <%= category_fields.label :name %>
       <%= category_fields.text_field :name %>
    <% end %>
-   <%= f.submit "Create Post" %>
-<% end %>
 
 <% Category.all.each do |c| %>
    <p>
       <label for="category_id_<%= c.id %>"><%= c.name %></label>
       <input type="checkbox" name="post[category_ids][]" value="<%= c.id %>">
    </p>
+<% end %>
+
+<input type="text" name="post_categories_attributes_0_name" name="post[categories_attributes][0][name]">\
+<%= f.submit "Create Post" %>
 <% end %>
