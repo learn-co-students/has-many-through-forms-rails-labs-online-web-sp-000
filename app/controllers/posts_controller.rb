@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def show
-    @post = Post.find(params[:id])    
+    @post = Post.find(params[:id]) 
   end
 
   def index
@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-  end
+  end 
 
   def create
     #raise params.inspect 

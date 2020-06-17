@@ -10,8 +10,13 @@ class Post < ActiveRecord::Base
       # i need to create a category that's already asspociated with 
       # this post and I need to make sure that this category already 
       # does'nt exist by name.
-      category = Category.find_or_create_by(name: categories_attributes[:name])
-      self.post_categories.build(:category => category)
+      if categories_attributes[:name].present?
+
+        category = Category.find_or_create_by(name: categories_attributes[:name])
+        if !self.categories.include?(category) 
+          self.post_categories.build(:category => category)
+        end 
+      end 
     end
     # raise categories_hashes.inspect 
   end 

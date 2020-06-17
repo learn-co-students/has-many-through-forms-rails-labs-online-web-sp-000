@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
     comment = Comment.create(comment_params)
     if comment.save
       #raise params.inspect
+      #binding.pry 
       redirect_to comment.post
     end 
   end
