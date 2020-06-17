@@ -1,0 +1,5 @@
+Posts in the <%= "#{@category.name}" %> category:  
+
+<% @category.posts.each do |post| %> 
+    <%= link_to post.title, post_path(post) %> 
+<% end %> 
