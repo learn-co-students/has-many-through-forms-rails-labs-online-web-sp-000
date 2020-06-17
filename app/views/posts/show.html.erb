@@ -3,9 +3,13 @@ a drop-down menu to select a user (we'll change this
 in future lessons to automatically associate the comment 
 with a logged-in user). We should also be able to create 
 a new user here and automatically associate it with the post. %>
-
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+<ul>
+   <% @post.categories.each do |category| %>
+   <li><%= category.name %></li>
+   <% end %>
+</ul>
 <%= form_for @post do |f| %>
    <%= f.fields_for :comments, @post.comments.build do |comments_fields| %>
       <%= comments_fields.text_field :content %>
