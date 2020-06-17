@@ -1,1 +1,3 @@
-
+<% @user.comments.each do |comment| %>
+  <%= link_to comment.content, user_path(comment) %>
+<% end %>
