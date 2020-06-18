@@ -10,6 +10,11 @@ a new user here and automatically associate it with the post. %>
    <li><%= category.name %></li>
    <% end %>
 </ul>
+
+<% @post.comments.each do |comment| %>
+   <p><%= "#{comment.user.username} says: #{comment.content}" %></p>
+<% end %>
+
 <%= form_for @post.comments.build do |f| %>
    <%= f.fields_for :user, User.new do |user_fields| %>
    <%= user_fields.label :username %> 
