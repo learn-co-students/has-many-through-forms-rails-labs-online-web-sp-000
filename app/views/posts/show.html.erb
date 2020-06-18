@@ -17,6 +17,7 @@ a new user here and automatically associate it with the post. %>
    <%= f.collection_select :user_id,  User.all, :id, :username %>
 <% end %>
 <p> 
+   <%= f.hidden_field :post_id, value: @post.id %>
    <%= f.label :content, "New Comment"%><br>
    <%= f.text_area :content %>
 </p>

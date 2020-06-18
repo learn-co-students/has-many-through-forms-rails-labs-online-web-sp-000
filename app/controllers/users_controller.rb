@@ -5,4 +5,4 @@ class UsersController < ApplicationController
     @user.comments.build
   end
 
-def 
+end 
