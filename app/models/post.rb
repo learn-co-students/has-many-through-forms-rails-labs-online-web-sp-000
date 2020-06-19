@@ -3,7 +3,11 @@ class Post < ActiveRecord::Base
   has_many :categories, through: :post_categories # all this does is add methods
   has_many :comments
   has_many :users, through: :comments
-  accepts_nested_attributes_for :comments
+  accepts_nested_attributes_for :comments, reject_if: :reject_comments
+
+  def reject_comments(comment_attributes)
+    comment_attributes[:content].blank?
+  end 
 
   def categories_attributes=(categories_hashes)
     categories_hashes.each do |i, categories_attributes|

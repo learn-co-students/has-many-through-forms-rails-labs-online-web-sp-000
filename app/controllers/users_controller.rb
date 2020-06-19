@@ -5,4 +5,9 @@ class UsersController < ApplicationController
     @user.comments.build
   end
 
+
+  private 
+  def user_params 
+    params.require(:user).permit(:username, comment_attributes: [:content])
+  end 
 end 
