@@ -1,33 +1,35 @@
-<%# A form to add a new comment. The form should have 
-a drop-down menu to select a user (we'll change this 
-in future lessons to automatically associate the comment 
-with a logged-in user). We should also be able to create 
-a new user here and automatically associate it with the post. %>
+
 <h1><%= @post.title %></h1>
 <p><%= @post.content %></p>
+
+<p>Categories: <%= @post.categories.map(&:name).join(' ') %></p>
 <ul>
-   <% @post.categories.each do |category| %>
-   <li><%= category.name %></li>
-   <% end %>
-</ul>
-
 <% @post.comments.each do |comment| %>
-   <p><%= "#{comment.user.username} says: #{comment.content}" %></p>
+  <li>
+    <%= comment.user.username %> says: <%= comment.content %>
+  </li>
 <% end %>
-
-<%= form_for @post.comments.build do |f| %>
-   <%= f.fields_for :user, User.new do |user_fields| %>
-   <%= user_fields.label :username %> 
-   <%= user_fields.text_field :username %> 
-   <%= f.collection_select :user_id,  User.all, :id, :username %>
+</ul>
+Commentors:
+<% @post.users.distinct.each do |user| %>
+   <li>
+      <%= link_to user.username, user_path(user) %>
+   </li>
 <% end %>
-<input type="text" id="comment_user_attributes_username" name="comment_user_attributes_0_username">
+   <%= form_for @post.comments.build do |f| %>
+      <%= f.fields_for :user, User.new do |user_fields| %>
+         <%= f.hidden_field :post_id %>
+         <p>
+            <%= f.collection_select :user_id, User.all, :id, :username %>
+         </p>
+         <%= user_fields.label :username %>
+         <%= user_fields.text_field :username %>
+      <% end %>
 
-<p> 
-   <%= f.hidden_field :post_id, value: @post.id %>
-   <%= f.label :content, "New Comment"%><br>
-   <%= f.text_area :content %>
-</p>
+         <p> 
+            <%= f.label :content, "New Comment"%><br>
+            <%= f.text_area :content %>
+         </p>
    <br>
    <%= f.submit %>
 <% end %>

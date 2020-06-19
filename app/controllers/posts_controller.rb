@@ -14,7 +14,9 @@ class PostsController < ApplicationController
   def create
     #raise params.inspect 
     post = Post.create(post_params)
+
     if post.save 
+      #binding.pry 
       redirect_to post
     end 
   end
