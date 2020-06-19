@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
   accepts_nested_attributes_for :comments, reject_if: :reject_comments
+  #accepts_nested_attributes_for :users 
 
   def reject_comments(comment_attributes)
     comment_attributes[:content].blank?
@@ -23,6 +24,20 @@ class Post < ActiveRecord::Base
       end 
     end
     # raise categories_hashes.inspect 
+  end 
+
+  def user_attributes(user_hashes)
+    # i need to create a user that's already asspociated with 
+      # this post and I need to make sure that this user 
+      # does'nt exist
+      user_hashes.each do |u, user_attributes|
+        if user_attributes[:username].present? 
+          user = User.find_or_create_by(username: user_attributes[:username])
+          if !self.users.include?(user)
+            self.users.build(:user => user)
+          end 
+        end 
+      end
   end 
   #build association writer to build association based on nested params 
   # def categories_attributes=(category_attributes)

@@ -18,17 +18,16 @@ Commentors:
 <% end %>
    <%= form_for @post.comments.build do |f| %>
       <%= f.hidden_field :post_id %>
+      <p>
+         <%= f.collection_select :user_id, User.all, :id, :username %>
+      </p>
       <%= f.fields_for :user, User.new do |user_fields| %>
-         
-         <p>
-            <%= f.collection_select :user_id, User.all, :id, :username %>
-         </p>
          <%= user_fields.label :username %>
          <%= user_fields.text_field :username %>
       <% end %>
-
+      <%# <input type="text" id="comment_user_attributes_username" name="comment_user_attributes_username"> %>
       <p> 
-         <%= f.label :content, "New Comment"%><br>
+         <%= f.label :content, "Create Comment"%><br>
          <%= f.text_area :content %>
       </p>
    <br>
