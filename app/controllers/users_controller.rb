@@ -8,5 +8,14 @@ class UsersController < ApplicationController
     @user = User.new 
   end 
 
+  def create 
+    @user = User.create(user_params)
+    @user.save 
+  end 
+
+  private 
+  def user_params 
+    params.permit(:user).require(:username, :email)
+  end 
   
 end 

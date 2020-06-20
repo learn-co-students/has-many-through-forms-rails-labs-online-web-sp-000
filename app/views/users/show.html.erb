@@ -2,6 +2,8 @@
 to all of the posts a user has commented on. %>
 <h1>User#Show</h1>
 
+<h2><%= @user.username %></h2>has 
+commented on the following posts:
 <%# <%= binding.pry %>
 <% @user.posts.each do |post| %>
    <%= link_to post.title, post_path(post) %>

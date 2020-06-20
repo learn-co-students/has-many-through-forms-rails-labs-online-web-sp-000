@@ -14,19 +14,22 @@ Commentors:
 <% @post.users.distinct.each do |user| %>
    <li>
       <%= link_to user.username, user_path(user) %>
+      
    </li>
 <% end %>
    <%= form_for @post.comments.build do |f| %>
       <%= f.hidden_field :post_id %>
       <p>
-         <%= f.collection_select :user_id, User.all, :id, :username %>
+         <%= f.collection_select :user_id, User.all, :id, :username, include_blank: "Choose User" %>
       </p>
-      <%= f.fields_for :user, User.new do |user_fields| %>
-         <%= user_fields.label :username %>
-         <%= user_fields.text_field :username %>
-      <% end %>
-      <%# <input type="text" id="comment_user_attributes_username" name="comment_user_attributes_username"> %>
+      <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %> 
+         <%= user_fields.label :username %> 
+         <%= user_fields.text_field :username %> 
+         <br>
+         <%= user_fields.label :email %>
+         <%= user_fields.text_field :email %>
       <p> 
+      <% end %>
          <%= f.label :content, "Create Comment"%><br>
          <%= f.text_area :content %>
       </p>
