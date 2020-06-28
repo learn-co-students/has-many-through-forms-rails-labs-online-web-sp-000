@@ -8,5 +8,9 @@
       <%= categories_fields.text_field :name %>
     <% end %>
 
+    <%= f.fields_for :comments, post.comments.build do |comments_fields| %>
+      <%= comments_fields.text_field :content %>
+    <% end %> 
+
     <%= f.submit %>
   <% end %>
