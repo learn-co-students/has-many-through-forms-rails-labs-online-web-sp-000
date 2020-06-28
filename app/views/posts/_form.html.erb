@@ -12,16 +12,6 @@
     <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
       <%= categories_fields.text_field :name %>
     <% end %><br><br>
-
-    User:<br>  
-    <%= f.fields_for :users, post.users.build do |users_fields| %>
-      <%= users_fields.text_field :username %>
-    <% end %><br><br>
-
-    Comments:<br> 
-    <%= f.fields_for :comments, post.comments.build do |comments_fields| %>
-      <%= comments_fields.text_field :content %>
-    <% end %><br><br> 
-
+ 
     <%= f.submit %>
   <% end %>
