@@ -14,7 +14,9 @@
     <% end %><br><br>
 
     User:<br>  
-    <%= f.collection_select :user_ids, User.all, :id, :username %><br><br>
+    <%= f.fields_for :users, post.users.build do |users_fields| %>
+      <%= users_fields.text_field :username %>
+    <% end %><br><br>
 
     Comments:<br> 
     <%= f.fields_for :comments, post.comments.build do |comments_fields| %>

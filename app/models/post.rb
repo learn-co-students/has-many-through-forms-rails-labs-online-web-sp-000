@@ -14,13 +14,19 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def users_attributes=(user_attributes)
+    user_attributes.values.each do |user_attribute|
+      user = User.find_or_create_by(user_attribute)
+      self.users << user
+    end
+  end  
+
+
   def comments_attributes=(comment_attributes)
     comment_attributes.values.each do |comment_attribute|
       if !comment_attribute[:content].empty?
         comment = Comment.find_or_create_by(comment_attribute)
-        user = comment.user
         self.comments << comment
-        self.users << user
       end
     end
   end  
