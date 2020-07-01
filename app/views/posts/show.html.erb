@@ -2,9 +2,14 @@
     <%= comments.content %></br>
 <% end %>
 
+<em>Comments</em>
+<% @post.comments.each do |comment| %>
+  <p><%= comment.user.username %> says: <%= comment.content %></p>
+<% end %>
+
 <h3>Add a New Comment</h3>
 <%= form_for(@comment = Comment.new) do |f| %>
-  <%= f.hidden_field :post_id %>
+  <%= f.hidden_field :post_id, value: @post.id %>
   <%= f.label :content %>
   <%= f.text_field :content %><br /><br />
   <%= f.label "Username" %>
