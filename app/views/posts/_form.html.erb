@@ -1,1 +1,13 @@
+<h1>Post New Form</h1>
+<%= form_for @post do |f|%>
+  <p>Title: <%= f.text_field :title%></p><br>
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name%><br>
 
+  <%= f.fields_for :categories, post.categories.build do |f|%>
+    <p>Category Name: <%= f.text_field :name %></p>
+  <% end %>
+
+  <p>Content: <%= f.text_field :content%></p>
+
+  <%= f.submit :'Create Post'%>
+<% end %>
