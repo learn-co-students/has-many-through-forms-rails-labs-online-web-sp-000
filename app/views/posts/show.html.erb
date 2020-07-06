@@ -25,6 +25,7 @@ Users:
     Select User:<br>
     <%= f.collection_select :user_id, User.all, :id, :username %><br>
 
+
     Create New User:<br>
     <%= f.fields_for :user, User.new do |user_fields| %>
         <%= user_fields.label :username %>
