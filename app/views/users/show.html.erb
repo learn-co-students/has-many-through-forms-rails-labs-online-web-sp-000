@@ -1,1 +1,7 @@
-
+<p>Posts you've commented on:
+  <% @user.posts.each do |post| %>
+    <li>
+      <%= link_to post.title, post_path(post) %> 
+    </li>
+  <% end %>
+</p>
