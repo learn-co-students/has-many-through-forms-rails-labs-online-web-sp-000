@@ -1,1 +1,21 @@
 <%= render @post %>
+
+<h3> New Comment?</h3>
+
+<% form_for @post.comments.build do |comment| %>
+    <%= comment.hidden_field :post_id, :value => @post.id %>
+    <%= comment.label 'Comment' %>
+    <%= comment.text_area :content %>
+    <%comment.label "Username" %>
+    <%= comment.collection_check_boxes :user_id, User.all, :id, :username %>
+    <p> Create a new User?</p>
+    <% comment.fields_for :user, @post.users.build do |f| %>
+        <%#f.hidden_field :comment_id %>
+        <%=f.label 'Username'%>
+        <%=f.text_field :username%>
+        <%=f.label 'Email'%>
+        <%=f.text_field :email%>
+    <% end %>
+    <%# c.button "Create Comment", type: 'submit' %>
+    <%= comment.submit %>
+<% end %>
