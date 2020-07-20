@@ -3,5 +3,6 @@ Rails.application.routes.draw do
   resources :posts
   resources :comments
   resources :users
+  # get '/users/:id', to: 'users#show', as: 'user'
   resources :categories
 end

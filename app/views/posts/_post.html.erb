@@ -1,0 +1,11 @@
+<div class=post-content>
+    <%= @post.title %>
+    <%= @post.content %>
+    <% @post.categories.each do |category| %>
+        <%= category.name %>
+    <% end %>
+    <% @post.comments.each do |c|%>
+        <%=c.user.username%> says: <%=c.content%>
+    <% end%>
+</div>
+
