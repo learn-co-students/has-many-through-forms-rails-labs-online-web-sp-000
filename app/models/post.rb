@@ -4,5 +4,22 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :users, through: :comments
 
+  #accepts_nested_attributes_for :categories
+
+  def categories_attributes=(category_attributes)
+    #binding.pry
+    if category_attributes["0"]["name"] == ""
+    
+    else
+      category_attributes.values.each do |category_attribute|
+
+        category = Category.find_or_create_by(category_attribute)
+        self.categories << category
+        #binding.pry
+      
+      end
+    end
+
+  end
 
 end
