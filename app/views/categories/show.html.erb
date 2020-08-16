@@ -1,0 +1,4 @@
+<h3>Related Posts: </h3>
+<%= @category.posts.each do |p| %>
+    <ul><%= p.name %></ul>
+<% end %>
