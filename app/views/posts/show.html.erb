@@ -4,5 +4,10 @@
 <p>
     <h5>Categories</h5><% @post.categories.each do |c| %>
         <ul><%= c.name %></ul>
-    <% end %>
+        <% end %>
 </p>
+Comments:
+  <% @post.comments.each do |comment| %>
+    <%= link_to comment.user.username, user_path(comment.user) %> said
+    <%= comment.content %>
+  <% end %>
