@@ -14,6 +14,7 @@
     <% end %><br>
 
     <%= f.fields_for :comments, @post.comments.build do |comment_content| %>
+        <%= binding.pry %>
         <%= comment_content.label "Comment" %>
         <%= comment_content.text_field :content %>
     <% end %><br>
