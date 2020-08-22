@@ -1,18 +1,28 @@
-<h1>Post: <%= @post.title %></h1>
-<h3><%= @post.content %></h3>
+<h1>Title: <%= @post.title %></h1>
+<h3>Content: <%= @post.content %></h3>
 <h4>Categories</h4>
 <p>
-    <h5>Categories</h5><% @post.categories.each do |c| %>
-        <ul><%= c.name %></ul>
-        <% end %>
+    <% @post.categories.each do |c| %>
+      <ul><%= c.name %></ul>
+    <% end %>
 
 Comments:
 <%= binding.pry %>
+<% @post.comments.each do |c| %>
+  <ul><%= c.content %></ul>
+<% end %>
+<%= fields_for :comments, @post.comments.build do |content| %>
+  <%= content.label "Comment" %>
+  <%= content.text_field :content %>
+<% end %><br>
+</p>
 
-  <% @post.comments.each do |comment| %>
-    <%= binding.pry %>
-    <%= link_to comment.user.username, user_path(comment.user) %> said
-    <%= comment.content %>
-  <% end %>
-
+<p>
+<%= form_for @comment do |f| %>
+  <%= @post.comments.build do |content| %>
+    <%= content.label "Comment" %>
+    <%= content.text_field :content %>
+  <% end %><br>
+<%= f.submit %>
+<% end %>
 </p>
