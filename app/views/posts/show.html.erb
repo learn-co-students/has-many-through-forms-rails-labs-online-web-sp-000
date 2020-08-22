@@ -22,5 +22,8 @@ Comments:
 
 <% @post.comments.each do |c| %>
   <ul><%= c.user.username %> says: <%= c.content %></ul>
+  <% assert_match c.user.username, response.body %>  
+    <ul><%= link_to c.user.username, user_path(c.user) %></ul>
+  <% end %>
 <% end %>
 </p>
