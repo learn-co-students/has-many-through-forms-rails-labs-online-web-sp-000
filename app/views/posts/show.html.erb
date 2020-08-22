@@ -7,22 +7,20 @@
     <% end %>
 
 Comments:
-<%= binding.pry %>
-<% @post.comments.each do |c| %>
-  <ul><%= c.content %></ul>
-<% end %>
-<%= fields_for :comments, @post.comments.build do |content| %>
-  <%= content.label "Comment" %>
-  <%= content.text_field :content %>
-<% end %><br>
-</p>
+<%= form_for @comment do |c| %>
+  <%= c.label "Comment" %>
+  <%= c.text_field :content %>
+  <%= c.collection_select :user_id, User.all, :id, :username %>
+  <%= c.hidden_field :post_id, value: @post.id %>
 
-<p>
-<%= form_for @comment do |f| %>
-  <%= @post.comments.build do |content| %>
-    <%= content.label "Comment" %>
-    <%= content.text_field :content %>
+  <%= c.fields_for :user, @comment.build_user do |users_field| %>
+    <%= users_field.label "New User" %>
+    <%= users_field.text_field :username %>
   <% end %><br>
-<%= f.submit %>
+  <%= c.submit %>
+<% end %><br>
+
+<% @post.comments.each do |c| %>
+  <ul><%= c.user.username %> says: <%= c.content %></ul>
 <% end %>
 </p>
