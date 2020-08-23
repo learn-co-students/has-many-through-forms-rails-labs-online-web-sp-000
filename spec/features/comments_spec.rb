@@ -11,6 +11,7 @@ describe 'comments', type: 'feature' do
 
   it 'creates a comment with an existing user' do
     fill_in('comment_content', with: 'great post!')
+    # binding.pry
     select(@user.username, from: 'comment_user_id')
     click_button('Create Comment')
     expect(page).to have_content("#{@user.username} says: great post!")
