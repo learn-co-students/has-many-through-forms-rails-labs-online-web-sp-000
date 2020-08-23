@@ -26,6 +26,7 @@ describe 'Posts', type: 'feature' do
     end
 
     it 'can create a post with a brand new category' do
+      # binding.pry
       fill_in('post_categories_attributes_0_name', :with => 'Funny')
       click_button('Create Post')
       @category = Post.last.categories.first.name
