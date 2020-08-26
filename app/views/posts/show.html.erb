@@ -6,24 +6,22 @@
       <ul><%= c.name %></ul>
     <% end %>
 
-Comments:
-<%= form_for @comment do |c| %>
-  <%= c.label "Comment" %>
-  <%= c.text_field :content %>
-  <%= c.collection_select :user_id, User.all, :id, :username %>
-  <%= c.hidden_field :post_id, value: @post.id %>
-
-  <%= c.fields_for :user, @comment.build_user do |users_field| %>
-    <%= users_field.label "New User" %>
-    <%= users_field.text_field :username %>
-  <% end %><br>
-  <%= c.submit %>
-<% end %><br>
-
-<% @post.comments.each do |c| %>
-  <ul><%= c.user.username %> says: <%= c.content %></ul>
-  <% assert_match c.user.username, response.body %>  
-    <ul><%= link_to c.user.username, user_path(c.user) %></ul>
-  <% end %>
-<% end %>
+    Comments:
+    <%= form_for @comment do |c| %>
+      <%= c.label "Comment" %>
+      <%= c.text_field :content %>
+      <%= c.collection_select :user_id, User.all, :id, :username %>
+      <%= c.hidden_field :post_id, value: @post.id %>
+    
+      <%= c.fields_for :user, @comment.build_user do |users_field| %>
+        <%= users_field.label "New User" %>
+        <%= users_field.text_field :username %>
+      <% end %><br>
+      <%= c.submit %>
+    <% end %><br>
+    
+    <% @post.comments.each do |comm| %>
+      <ul><%= comm.user.username %> says: <%= comm.content %></ul>
+      <ul><%= link_to comm.user.username, user_path(comm) %></ul>
+    <% end %>
 </p>

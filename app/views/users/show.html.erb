@@ -1,1 +1,7 @@
+<h1>User Page</h1>
+<%= @user.username %> is <%= @user %>
 
+Related posts:
+<% @user.posts.each do |pos| %>
+    <ul><%= link_to pos.title, post_path(pos) %></ul>
+  <% end %>
