@@ -1,5 +1,3 @@
-require 'pry'
-
 class PostsController < ApplicationController
   def index
     @posts = Post.all
@@ -7,15 +5,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    
-    # @comment = Comment.new    
     @users = User.all
-    
-    
-
-    # @user = User.new   
-    
-    # @post.comments.build
   end
 
   def new

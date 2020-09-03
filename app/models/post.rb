@@ -6,9 +6,15 @@ class Post < ActiveRecord::Base
     
   def categories_attributes=(attributes)
     attributes.values.each do |attr|      
-      if !attr[:name].blank?
+      # if !attr[:name].blank?
+      if attr[:name].present?
         category = Category.find_or_create_by(attr)      
-        self.categories << category
+        
+        # this was added in video - keeps from adding category if already assigned (not part of lab tests)
+        if !self.categories.include?(category)
+          # self.categories << category
+          self.post_categories.build(category: category)
+        end
       end
     end
   end
