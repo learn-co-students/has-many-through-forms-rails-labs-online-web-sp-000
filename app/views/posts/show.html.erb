@@ -5,7 +5,9 @@
 </p>
 
 <p>
-Categories: <%= @post.categories.map(&:name).join(' ') %>
+Categories: <%= @post.categories.each do |c| %>
+  <li><%= c.name %></li>
+  <% end %>
 </p>
 
 <ul>
