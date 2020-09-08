@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
+    @user = User.where(params[:id]).includes(:comments => :post).first
+  end
+
+  def index
+    @users = User.all
   end
 
 end
