@@ -6,3 +6,12 @@
         <li><%= category.name %></li>
     <% end %>
 </ul>
+
+<% @post.comments.each do |comment| %>
+    <p><%= comment.user.username %></p>
+    <p><%= comment.content %></p>
+<% end %>
+
+<% @users.each do |user| %>
+    <p><%= link_to user.username, user_path(user) %></p>
+<% end %>
