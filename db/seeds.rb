@@ -6,5 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Category.create(name: "Recipe")
-Category.create(name: "Political")
+Category.find_or_create_by(name: "Recipe")
+Category.find_or_create_by(name: "Political")
+
+User.find_or_create_by(username: "User 1")
+User.find_or_create_by(username: "User 2")
