@@ -1,3 +1,12 @@
 <h1><%= @post.title %></h1>
-<h2><%= @post.post_categories %></h2>
-<p><%= @post.content %></p>
+<h2><%= @post.content %></h2>
+<% @post.categories.each do |category| %>
+    <h3><%= category.name %></h3>
+<% end %>
+<h4><% @post.comments.each do |comment| %></h4>
+    <%= comment.user.username %> commented: <%= comment.content %>
+<% end %>
+<h4><% @post.users.uniq.each do |user| %></h4>
+    <%= link_to user.username, user_path(user) %>
+<% end %>
+
