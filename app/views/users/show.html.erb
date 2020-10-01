@@ -1,1 +1,4 @@
 
+<% @user.posts.each do |a|%>
+    <a href="<%= post_path(a) %>"><%= a.title %></a><br>
+<% end %>
