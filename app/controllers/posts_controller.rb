@@ -12,7 +12,10 @@ class PostsController < ApplicationController
   end
 
   def create
+    # raise params.inspect
     post = Post.create(post_params)
+    @user = post.user_ids.uniq
+    binding.pry
     redirect_to post
   end
 

@@ -8,3 +8,14 @@ Categories: <br />
     <li><%= category.name %></li>
     <% end %>
 </ul>
+
+<ul>
+    <% if !@post.comments.empty? %>
+    <% @post.comments.each do |comment| %>
+        <li><%= comment.content %></li>
+    <% end %>
+        <% if @user%>
+        <li><%= link_to @user.username, user_path(@user) %></li>
+        <% end %>
+    <% end%>
+</ul>
