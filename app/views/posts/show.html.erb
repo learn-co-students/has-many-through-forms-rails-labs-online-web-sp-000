@@ -1,1 +1,26 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
 
+<% @post.categories.each do |c| %>
+    <%= c.name %>
+<% end %>
+
+<% @post.comments.each do |existing_comment| %>
+    <%= existing_comment.user.username %> says: <%= existing_comment.content %>
+<% end %>
+
+<% @post.comments.collect {|c| c.user }.uniq.each do |usr| %>
+    <%= link_to usr.username, user_path(usr) %>
+<% end %>
+
+<%= form_for @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+    <%= f.text_field :content %>
+    <%= f.collection_select :user_id, User.all, :id, :username, :include_blank => 'New User' %>
+
+    <%= f.fields_for :user_attributes do |u| %>
+        <%= u.text_field :username %>
+    <% end %>
+    
+    <%= f.submit "Create Comment" %>
+<% end %>
