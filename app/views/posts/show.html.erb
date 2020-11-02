@@ -1,1 +1,64 @@
+<h1>Title: <%= @post.title %></h1>
 
+<h3>Categories:</h3>
+<% @post.categories.each do |category| %>
+    <%= link_to category.name, category %>
+<% end %>
+
+<h3>Content:</h3>
+<p><%= @post.content %></p>
+
+<h3>Comments:</h3>
+<ul>
+    <% @post.comments.each do |comment| %>
+        <li><%= comment.user.username %> says: <%= comment.content %>
+    <% end %>
+</ul>
+
+<h3>Commenters:</h3>
+<ul>
+    <% @post.users.uniq.each do |user| %>
+        <li><%= link_to user.username, user %>
+    <% end %>
+</ul>
+
+<h2>Add a new comment:</h2>
+
+<%= form_for @post.comments.build do |f| %>
+<%# In previous labs, we did not have to specify ".build" because the request to the form was coming from the new controller action %>
+
+    <%= f.hidden_field :post_id %>
+    <%# When you create a comment, you need content, but also need the post_id and user_id so that the comment can be connected to/associated with/'belong to' a post and a user %>
+    <%# This form asks for content and the user_id, but it never attaches a post_id %>
+    <%# It is possible to create a comment without the post_id, but in this case you need the post_id because the user will be redirected to the post's show page (you need the post_id to get to the show page) %>
+    <%# The hidden value (above) attaches a value of 1 to the key 'post_id'. You can also use the code below.%>
+        <%# f.hidden_field :post_id, value: @post.id %>
+
+    <h3>Select a user:<h3>
+
+    <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+    <%# In between 'f.collection_select' and ':user_id' (above) is actually the object for the new comment. However, we ommit it because this object was already referred to when we called form_for (since we called @post.comments.build) %>
+    <%# The second element, (recall that the first is the new object, which is hidden -- see above bullet) :user_id, is the column/attribute to the comment object. So we want comment.user_id %>
+    <%# User.all is the collection %>
+    <%# id is the value we want from one of the user objects from User.all %>
+    <%# username is what we want displayed from one of the user objects from User.all %>
+
+    <h3>Or create a user:</h3>
+
+    <%= f.fields_for :user, @post.comments.last.build_user do |user_fields| %>
+    <%# similar to form_for, we need to add .build, because a user doesn't exist for the commment %>
+    <%# since this field is to create a user from the comment form, we need to add 'accepts_nested_attributes_for :user' in the Comment model %>
+    
+        <%= user_fields.text_field :username %>
+        <%# we create a user based on the user attribute, :username %>
+
+    <% end %>
+
+    <h3> Now add your comment:</h3>
+   
+    <%= f.label "Content" %>
+    <%= f.text_field :content %>
+    
+    <%= f.submit %>
+
+<% end %>
