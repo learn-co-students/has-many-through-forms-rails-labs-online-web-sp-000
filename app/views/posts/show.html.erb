@@ -1,1 +1,63 @@
+<h3><%= @post.title %></h3>
 
+<h3> Post Content </h3>
+<%= @post.content %>
+
+<h3> Categories</h3>
+ <%# can create a post with a previously created category
+    can create a post with a brand new category
+    can create a post with a brand new category and an existing category %>
+    <% @post.categories.each do |category|%>
+            
+        <%= category.name %>
+          
+    <% end %>
+
+
+<h3> Users That Commented Here </h3>
+<%# Posts show should display a list of unique users who have commented on the post %>
+<ul>
+    <% @post.users.uniq.each do |user|%>
+            <li>
+                <%= link_to user.username, user_path(user)%>
+            </li>
+    <% end %>
+</ul>
+
+
+<h3> User Comments/All Comments </h3>
+<%# should display all of the comments for that post %>
+<ul>
+    <% @post.comments.each do |comment|%>
+        <% if comment.user%>
+            <li>
+                <%= comment.user.username %> says: <%= comment.content %>
+            </li>
+        <% end %>   
+    <% end %>
+</ul>
+
+
+<h3> Add a New Comment/ Leave a Comment </h3>
+    <%= form_for @post.comments.build do |f| %>
+            <%= f.label :content  %>
+            <%= f.text_field :content %> <br>
+
+    <p> Select an Existing User: </p>
+        <div>
+            <%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'Choose a User' %>
+            Or create a new User
+             <%= f.fields_for :user, @post.comments.last.build_user do |u| %>
+                    <%= u.text_field :username %>    
+            <% end %>
+            <br>
+        </div>
+        <div>
+            <%= f.hidden_field :post_id, value: @post.id %>
+            <br>
+        </div>
+
+        <div>
+        <%= f.submit %>
+        </div>
+    <% end %>  

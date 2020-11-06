@@ -1,1 +1,35 @@
+<h1>New Post</h1>
 
+<%= @post.content %>
+<br>
+<%= form_for(@post) do |f| %>
+    <div>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+    </div>
+
+    <div>
+        <%= f.label :content  %>
+        <%= f.text_field :content %>
+    </div>
+
+
+    <p> Select an Existing Post: </p>
+    <div>
+        <%= f.collection_check_boxes :category_ids, Category.all, :id, :name, include_blank: 'Select One' %>
+    </div>
+    
+    <p> Create a New Brand :</p>
+    <div>
+        <%= f.label "Create a New Category"%>
+        <%= f.fields_for :categories, post.categories.build do |c| %>
+            <%= c.text_field :name %>
+            <%# <%= c.label :name %> %>
+            <%# <%= c.text_field :name %>     %>
+        <% end %>
+    </div>
+
+    <div>
+    <%= f.submit %>
+    </div>
+<% end %>  
