@@ -1,1 +1,18 @@
 
+<%= form_for @post do | f | %>
+    Title: <%= f.text_field :title  %> <br>
+    Content: <%= f.text_field :content  %> <br>
+
+    Check categories that applies: 
+    <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %> <br>
+
+
+    Or new category name:
+    <%= f.fields_for :categories, @post.categories.build do | x |  %>
+        <%=  x.text_field :name  %>
+        <% end  %> <br>
+
+    <%= f.submit  %>
+
+    <% end  %>
+
