@@ -1,1 +1,36 @@
 
+<%= @post.title %><br>
+<%= @post.content %><br>
+Category:
+<% @post.categories.each do | category | %>
+    <%= category.name %><br>
+    <% end %>
+<br>
+<br>
+Comments
+    <% @post.comments.each do | comment | %>
+        <%= comment.user.username %> says: <%= comment.content %> <br>
+<% end %>
+
+Unique commenters:
+<% @post.users.uniq.each do | user | %>
+    <%= link_to user.username, user_path(user) %>
+    <% end %>
+    <br>
+
+
+FORM TO ADD A NEW COMMENT, this sends to the Comment controller!!! automatically!:
+<%= form_for @post.comments.build do | f | %>
+    Content: 
+    <%= f.text_field :content %><br>
+    User:
+    <%= f.collection_select :user_id, User.all, :id, :username %><br>
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+    Or new username: 
+    <%= f.fields_for :user, User.new do | x | %>
+        <%=  x.text_field :username %>
+    <% end %> <br>
+
+    <%= f.submit %>
+    <% end %>
