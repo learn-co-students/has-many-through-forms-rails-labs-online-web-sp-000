@@ -1,0 +1,23 @@
+<div class="comment-content">
+
+	<%= form_for @comment do |f| %>
+		<%= f.label :content %><br>
+	  	<%= f.text_area :content %><br><br>
+	  	<%= f.label :user %><br>
+	  	<%= f.collection_check_boxes :user, User.all, :id, :username, include_blank: true %>
+	  	<%= f.submit %>
+  	<% end %>
+
+  	<%= f.label "Create a new user:" %>
+  	<%= f.fields_for :user, comment.user.build do |categories_fields| %>
+    <%= categories_fields.text_field :name %>
+  <% end %><br><br>
+
+	
+</div>
+
+
+  	    params.require(:comment).permit(:content, :post_id, :user_id, user_attributes:[:username])
+
+  <%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+    <%= categories_fields.text_field :name %>
