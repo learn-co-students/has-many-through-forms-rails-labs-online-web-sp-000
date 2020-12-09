@@ -1,1 +1,54 @@
+<div class=post-content>
+
+  <%= form_for @post do |f| %>
+	  <%= f.label :title %><br>
+	  <%= @post.title %><br><br>
+	  <%= f.label :content %><br>
+	  <%= @post.content %><br><br>
+
+	  <%= f.label :categories %><br>
+	  <% @post.categories.each do |category| %>
+	    <%= category.name %><br>
+	  <% end %>
+
+
+	  <% if !@comments.empty? %>
+	  	<h2>Comments:</h2>
+		  <%= f.label :comments %><br>
+		  <% @comments.each do |comment| %>
+		  	<%= comment.user.username %> says: <%= comment.content %><br>
+		  <% end %>
+
+		  <%= f.label "Users that has commented on the post." %><br>
+		  <% @post.users.uniq.each do |user| %>
+		  	<%= link_to user.username, user_path(user) %><br>
+		  <% end %><br><br>
+
+	  <% end %>
+
+
+  <% end %>
+</div>
+
+<br><br>
+<div class="comment-content">
+
+	<%= form_for @comment do |f| %>
+		<%= f.label "Comment" %><br>
+	  	<%= f.text_area :content %><br><br>
+	  	<%= f.hidden_field :post_id, value: @post.id %>
+	  	<%= f.label :user_id %><br>
+	  	<%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+
+	  	<%= f.label "Create a new user:" %>
+	  	<%= f.fields_for :user, @user do |user_fields| %>
+	    <%= user_fields.text_field :username %>
+  		<% end %><br><br>
+	  	<%= f.submit %>
+  	<% end %>
+
+
+
+</div>
+
 
