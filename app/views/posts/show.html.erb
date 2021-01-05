@@ -23,6 +23,12 @@
   <option value="RealBigFish">     </option>
  
 </select>
+
+ <%= f.fields_for :users, post.users.build do |users_fields| %>
+    <%= users_fields.text_field :username %>
+    <%= users_fields.text_field :email %>
+
+  <% end %>
 <%= f.submit %>
 <% end %>
 
