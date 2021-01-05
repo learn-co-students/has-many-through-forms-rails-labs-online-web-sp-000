@@ -20,10 +20,7 @@
 <%= f.label "Content" %>
 <%= f.text_field :content %>
 
-<select id="comment_user_id" name="users">
-  <option value="RealBigFish">     </option>
- 
-</select>
+
 
  <%= f.fields_for :users, @post.users.build do |users_fields| %>
     <%= users_fields.text_field :username %>
