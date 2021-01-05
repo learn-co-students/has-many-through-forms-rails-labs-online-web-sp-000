@@ -1,1 +1,30 @@
+<html>
+<body>
+<%= @post.title %>
 
+<%= @post.content %>
+
+<%= @post.categories.each do |category| %>
+<%= category.name %>
+<% end %>
+
+<%= @post.comments.each do |comment| %>
+<%= comment.content %>
+<% end %>
+
+<%= @post.users.uniq.each do |user| %>
+<%= link_to user.username, user_path(user) %>
+<% end %>
+
+<%= form_for @comment do |f| %>
+<%= f.label "Content" %>
+<%= f.text_field :content %>
+<select id="comment_user_id" name="users">
+  <option value="RealBigFish">     </option>
+ 
+</select>
+<%= f.submit %>
+<% end %>
+
+</body>
+</html>
