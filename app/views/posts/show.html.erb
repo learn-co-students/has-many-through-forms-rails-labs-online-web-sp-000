@@ -4,32 +4,33 @@ Post Title: <%= @post.title %><br><br>
 
 Post Content: <%= @post.content %><br><br>
 
-<%= @post.categories.each do |category| %>
-<%= category.name %>
+<% @post.categories.each do |category| %>
+Category: <%= category.name %>
 <% end %><br><br>
 
-<%= @post.comments.each do |comment| %>
-<%= comment.user %> says: <%= comment.content %>
+<% @post.comments.each do |comment| %>
+<%= comment.user.username %> says: <%= comment.content %>
 <% end %>
 
-<%= @post.users.uniq.each do |user| %>
+<% @post.users.uniq.each do |user| %>
 <%= link_to user.username, user_path(user) %>
-<% end %>
+<% end %><br><br>
 
-<%= form_for @post.comments.build do |comment| %>
+
+Create new comment: <%= form_for @post.comments.build do |comment| %>
 <%= comment.label "Content" %>
 <%= comment.text_field :content %>
 <%= comment.hidden_field :post_id, value: @post.id %>
-<%= comment.collection_select :user, User.all, :id, :username %>
+Select an existing user for this comment: <%= comment.collection_select :user_id, User.all, :id, :username %><br><br>
 
 
 
-
+Or, create a user for this comment:
  <%= comment.fields_for :user, User.new do |users_fields| %>
     Username<%= users_fields.text_field :username %>
     Email<%= users_fields.text_field :email %>
 
-  <% end %>
+  <% end %><br>
 <%= comment.submit %>
 <% end %>
 
