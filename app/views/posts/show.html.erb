@@ -9,8 +9,8 @@ Category: <%= category.name %>
 <% end %><br><br>
 
 <% @post.comments.each do |comment| %>
-<%= comment.user.username %> says: <%= comment.content %>
-<% end %>
+<%= comment.user.username %> says: <%= comment.content %><br>
+<% end %><br>
 
 <% @post.users.uniq.each do |user| %>
 <%= link_to user.username, user_path(user) %>
@@ -21,7 +21,7 @@ Create new comment: <%= form_for @post.comments.build do |comment| %>
 <%= comment.label "Content" %>
 <%= comment.text_field :content %>
 <%= comment.hidden_field :post_id, value: @post.id %>
-Select an existing user for this comment: <%= comment.collection_select :user_id, User.all, :id, :username %><br><br>
+Select an existing user for this comment: <%= comment.collection_select :user_id, User.all, :id, :username, { :include_blank => true } %><br><br>
 
 
 
