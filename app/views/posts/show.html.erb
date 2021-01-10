@@ -1,1 +1,35 @@
+<%= @post.title %>
+<br>
+<%= @post.content %>
+<br>
+
+<% @post.categories.each do |category| %>
+<%= category.name %>
+<% end %>
+<br>
+
+<% @post.users.each do |user| %>
+<%= link_to user.username, user_path(user) %> 
+<% user.comments.each do |comment| %>
+says: <%= comment.content %>
+<br>
+<% end %>
+
+<% end %>
+<br>
+
+<%= form_for(Comment.new, url: comments_path) do |f| %>
+
+<%= f.text_area :content %>
+<br>
+<%= f.hidden_field :post_id, value: @post.id %>
+<%= f.collection_select :user_id, User.all, :id, :username, include_blank: 'select a user' %>
+<br>
+<%= f.fields_for :user, User.new do |user_fields| %>
+<%= user_fields.text_field :username %>
+<br>
+<% end %>
+<%= f.submit %>
+
+<% end %>
 
