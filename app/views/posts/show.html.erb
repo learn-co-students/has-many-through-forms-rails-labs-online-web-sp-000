@@ -1,1 +1,16 @@
 
+<h1>Title: <%= @post.title%></h1>
+<h3>Content: <%= @post.content%></h3>
+<h3>Categories: <%= @post.categories.join(', ')| %></h3>
+<h3>Comments:</h3>
+ <ul><% @post.comments.each do |comment|%>
+    <li><%= comment.user%> says: <%=comment.content%></li>
+ <%end%>
+</ul>
+
+<%= f.fields_for :comments post.comments.build do |comment_fields|%>
+    <%= comment_fields.text_field :content%>
+    <%= comment_fields.collection_check_boxes :user_ids, User.all, :id, :name%>
+    <%= f.fields_for :user, comment.user.build do |user_fields|%>
+        <>
+    <%= f.hidden_field :post_id, value: @post.id %>
