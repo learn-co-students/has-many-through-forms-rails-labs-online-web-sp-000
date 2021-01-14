@@ -32,7 +32,6 @@
   </p>
   <h4>Choose a username</h4>
   <p><%= f.collection_select :user_id, User.all, :id, :username %></p>
-  <!-- Add blank option? -->
 
   <h4>Create a new username</h4>
   <p>
@@ -42,6 +41,5 @@
     <% end %>
     <%= f.submit %>
   </p>
-  <!-- Needs to create a new user assigned to comment upon submission -->
 <% end %>
 </fieldset>
