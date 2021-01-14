@@ -1,1 +1,23 @@
+<h1><%= link_to @post.title, post_path(@post) %></h1>
+<p><%= @post.content %></p>
 
+<h2>Categories</h2>
+<ul>
+  <% @post.categories.each do |category| %>
+    <li><%= category.name %></li>
+  <% end %>
+</ul>
+
+<h2>Comments</h2>
+<ul>
+  <% @post.comments.each do |comment| %>
+    <li><%= comment.user %> - <%= comment.content %></li>
+  <% end %>
+</ul>
+
+<h2>Commentors</h2>
+<ul>
+  <% @post.users.distinct.each do |user| %>
+    <li><%= link_to user.username, user_path(user) %></li>
+  <% end %>
+</ul>
