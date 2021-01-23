@@ -12,6 +12,7 @@ describe 'Posts', type: 'feature' do
     end
 
     it 'can create a post without a new category' do
+      
       click_button('Create Post')
       @categories = Post.last.categories
       expect(@categories).to be_empty
