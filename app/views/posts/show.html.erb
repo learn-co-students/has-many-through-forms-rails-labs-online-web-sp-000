@@ -1,1 +1,33 @@
 
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+<ul>
+<% @post.categories.each do |c| %>
+<li><%= c.name %></li>
+<% end %>
+</ul>
+
+<ul>
+<% @post.comments.each do |c| %>
+<li><%= c.user.username %> says: <%= c.content %></li>
+<% end %>
+</ul>
+<ul>
+<% @post.unique_users.each do |u| %>
+<li><%= link_to u.username, user_path(u) %></li>
+<% end %>
+</ul>
+
+<%= form_for @post.comments.build do |f| %>
+  <%= f.hidden_field :post_id %>
+  <%= f.collection_select :user_id, User.all, :id, :username %>
+
+  <%= f.fields_for :user, User.new do |user_fields| %>
+    <%= user_fields.label :username %>
+    <%= user_fields.text_field :username %>
+  <% end %>
+  
+  <%= f.label :content, "New Comment" %>
+  <%= f.text_area :content %>
+  <%= f.submit %>
+<% end %>
