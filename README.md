@@ -2,7 +2,26 @@
 
 ## Overview
 
-We've looked at setting up the associations behind posts with comments, categories, and users. Now, let's actually give our users the ability to create new comments, users, and categories! For this lab, your models are already stubbed out, but you may need to update them to make your forms work properly.
+We've looked at setting up the associations
+ posts, comments, categories, users.
+
+create new comments, users, and categories! For this lab, your models are already stubbed out, but you may need to update them to make your forms work properly.
+Update the models
+Category
+  has_many :post_categories
+  has_many :posts, through: :post_categories
+comment
+  belongs_to :user
+  belongs_to :post
+Post_category
+  belongs_to :post
+  belongs_to :category
+Post
+  has_many :post_categories
+  has_many :categories, through: :post_categories
+User
+  has_many :comments
+  has_many :posts, through: :comments
 
 
 ## Objectives
