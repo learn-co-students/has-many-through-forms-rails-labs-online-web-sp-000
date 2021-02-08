@@ -9,7 +9,7 @@
 
     <%= f.fields_for :categories, post.categories.build do |cat_fields|%>
         <%= cat_fields.label :name, "New Category" %>
-        <%= cat_fields.text_field :name, input_html: { name: 'post_categories_attributes_0_name' }%>
+        <%= cat_fields.text_field :name%>
     <% end %>
     <%=f.submit%>
 
