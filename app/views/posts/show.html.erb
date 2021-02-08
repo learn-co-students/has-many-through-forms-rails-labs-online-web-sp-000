@@ -4,7 +4,7 @@
 <h3>Categories: <%= @post.categories.map(&:name).join(' ') %></h3>
 <h3>Commentors</h3>
 <ul>
-<% @post.users.each.uniq do |user|%>
+<% @post.users.uniq.each do |user|%>
    <li>
    <%= link_to user.username, user_path(user)%>
    </li>
