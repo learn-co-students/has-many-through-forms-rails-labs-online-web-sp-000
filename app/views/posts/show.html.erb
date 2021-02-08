@@ -2,22 +2,42 @@
 <h1>Title: <%= @post.title%></h1>
 <h3>Content: <%= @post.content%></h3>
 <h3>Categories: <%= @post.categories.map(&:name).join(' ') %></h3>
+<h3>Commentors</h3>
+<ul>
+<% @post.users.each.uniq do |user|%>
+   <li>
+   <%= link_to user.username, user_path(user)%>
+   </li>
+<%end%>
+</ul>
+
+
 <h3>Comments:</h3>
+
+<ul><% @post.comments.each do |comment|%>
+      <li><%= comment.user.username%> says: <%=comment.content%></li>
+<%end%>
+
 <%= form_for @post.comments.build do |f|%>
 
-  <%= f.hidden_field :post_id %>
+  <%= f.hidden_field :post_id, value: @post.id %>
 
+   <%= f.collection_select :user_id, User.all, :id, :username %>
+   </br>
 
-   <%= f.fields_for :comments, @post.comments.build do |comment_fields|%>
-      <%= comment_fields.label :content, "New Comment" %>
-      <%= comment_fields.text_area :content %>
+   <%= f.fields_for :user, User.new do |user_fields|%>
+      <%= user_fields.label :username, "New User" %>
+      <%= user_fields.text_field :username %>
    <% end %>
 
-   <ul><% @post.comments.each do |comment|%>
-      <li><%= comment.user%> says: <%=comment.content%></li>
-   <%end%>
+
+   <%=f.label :content, "New Comment"%>
+   <%=f.text_area :content%>
+   
+   
 
    <%=f.submit "Create Comment"%>
+
 <%end%>
  
 </ul>
