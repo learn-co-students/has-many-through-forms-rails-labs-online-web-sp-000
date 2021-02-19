@@ -12,6 +12,4 @@ class Post < ActiveRecord::Base
         self.categories << category
     end
   end
-
-
 end
