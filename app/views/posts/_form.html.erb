@@ -1,1 +1,15 @@
 
+<div class=post-content>
+<%= @post.content %>
+</div>
+<%= form_for post do |f| %>
+<%= f.label "Title" %>
+<%= f.text_field :title %>
+<%= f.label "Content" %>
+<%= f.text_area :content %>
+
+<%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) %>
+
+<p><label>New Category:</label> <input type="text" name="post[categories_attributes][name]" id="post_categories_attributes_0_name"></p>
+<%= f.submit %>
+<% end %>
