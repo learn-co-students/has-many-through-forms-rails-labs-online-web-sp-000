@@ -1,0 +1,31 @@
+<%= f.fields_for :categories, post.categories.build do |categories_fields| %>
+  <%= categories_fields.text_field :name %>
+<% end %>
+
+<%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+
+:category_ids == post(because it's a form_for post)[category_ids](because its the name of the arry)[](because collection)
+Category.all (the collection to iterate over)
+id (the value of the checkbox)
+name (the label for the checkbox)
+
+<% Category.all.each do |c| %>
+<p><label for="category_id_<%= c.id %>"> <%= c.name %></label>
+<input type="checkbox" name="post[category_ids][]" value="<%= c.id %>" id="category_id_<%= c.id %>">
+</p>
+<% end %>
+
+  <%= form_for @post.comments.build do |f| %>
+    <p><%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %><br>
+
+    <%= f.fields_for :user, User.new do |user_fields| %>
+        <%= user_fields.label :username %>
+        <%= user_fields.text_field :username %>
+      <% end %>
+    
+    <%= f.label :content %>
+    <%= f.text_field :content %><br>
+    <%= f.hidden_field :post_id, value: @post.id %>
+
+    <%= f.submit %></p>
+  <% end %>
