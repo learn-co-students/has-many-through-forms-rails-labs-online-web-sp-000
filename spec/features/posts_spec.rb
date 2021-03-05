@@ -4,7 +4,7 @@ describe 'Posts', type: 'feature' do
 
   describe 'new' do
 
-    before :each do
+    before :each do 
       @cool = Category.create(name: 'Cool')
       visit 'posts/new'
       fill_in('post_title', :with => 'Feeling Awesome')
