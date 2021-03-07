@@ -1,0 +1,9 @@
+<h2><%= @category.name %></h2>
+
+<h3>Posts associated with this category:</h3>
+
+<% @category.posts.uniq.each do |post| %>
+    <ol>
+        <li><%= link_to post.title, post_path(post) %></li>
+    </ol>
+<% end %>
