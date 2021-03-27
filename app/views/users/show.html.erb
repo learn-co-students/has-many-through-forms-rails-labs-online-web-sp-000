@@ -1,1 +1,7 @@
 
+<ul>
+  <%= @user.comments.each do |comment| %>
+    <% post = Post.find(comment.post_id) %>
+    <li><%= link_to post.title, post_path(post) %></li>
+  <% end %>
+</ul>
