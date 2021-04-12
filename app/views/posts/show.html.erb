@@ -1,1 +1,37 @@
+<h1><%=@post.title%></h1>
+<p><%=@post.content%></p>
+<ul>
+<%@post.categories.each do |c|%>
+    <li>
+    <%=c.name%>
+    </li>
+<%end%>
+</ul>
+
+<ul>
+<%@post.comments.each do |c|%>
+    <li>
+    <%="#{c.user.username} says: #{c.content}"%>
+    </li>
+<%end%>
+</ul>
+
+<ul>
+<%@usernames.each do |username|%>
+    <li>
+    <%= link_to username, user_path(User.find_by(username:username))%>
+    </li>
+<%end%>
+</ul>
+
+<%=form_for @post.comments.build do |f|%>
+<%= f.hidden_field :post_id, value: @post.id %>
+<%=f.collection_select :user_id, User.all, :id, :username, {include_blank: "User"}%><br>
+    <%=f.fields_for :user, User.new do |user|%>
+        <%= user.text_field :username%><br>
+    <%end%>
+<%=f.label :comment%><br>
+<%=f.text_area :content%><br>
+<%=f.submit%>
+<%end%>
 
