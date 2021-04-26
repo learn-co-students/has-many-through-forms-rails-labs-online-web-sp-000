@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
-
+  
   def create
     comment = Comment.create(comment_params)
+    #raise @comment.inspect
     redirect_to comment.post
   end
 

@@ -1,1 +1,17 @@
+<%= @post.title %><br>
+<%= @post.content %><br>
+Categories:<br>
+<% @post.categories.each do |c|%>
+    <%= c.name %>
+<%end %>
 
+Comments:<br>
+<%= @post.users.uniq.each do |u|%>
+    <%= u.username %> says:<br>
+    <% u.comments.each do |comment| %>
+        <%= comment.content %><br><br>
+    <%end%>
+    <%= link_to u.username, user_path(u)%>
+<%end%>
+
+<%= render "comments/new"%>
