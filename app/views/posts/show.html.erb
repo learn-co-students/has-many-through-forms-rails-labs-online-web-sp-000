@@ -1,1 +1,8 @@
+<%= @post.title %>
+<%= @post.categories %>
+<%= @post.comments %>
+<% @post.comments.user.each do |user| %>
+<%= user.name.uniq %>
+<% end %>
+
 
