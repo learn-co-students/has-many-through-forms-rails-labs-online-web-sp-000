@@ -4,5 +4,13 @@
 <% @post.comments.user.each do |user| %>
 <%= user.name.uniq %>
 <% end %>
+<%= f.hidden_field :comment_user_id, value: @post.comment %>
+<%= f.collection_select :user_ids, User.all, :id, :name, include_blank: true %>
+<%= f.fields_for :users, @post.user.build do |user_fields| %>
+    <%= user_fields.text_field :name %>
+<%= f.input "Comment" %>
+<%= f.text_field :comment_content %>
+<% end %>
+<%= f.submit %>
 
 
