@@ -1,16 +1,21 @@
-<%= @post.title %>
-<%= @post.categories %>
-<%= @post.comments %>
-<% @post.comments.user.each do |user| %>
-<%= user.name.uniq %>
+<h2><%= @post.title %></h2>
+<h4><%= @post.categories.name %></h4>
+<p><%= @post.content %></p>
+<ul>
+<% @post.comments.each do |comment| %>
+<li><%= comment.user.username %> says: <%= comment.content %></li>
 <% end %>
-<%= f.hidden_field :comment_user_id, value: @post.comment %>
-<%= f.collection_select :user_ids, User.all, :id, :name, include_blank: true %>
-<%= f.fields_for :users, @post.user.build do |user_fields| %>
-    <%= user_fields.text_field :name %>
-<%= f.input "Comment" %>
-<%= f.text_field :comment_content %>
+</ul>
+<%= form_for @post.comments.build do |f| %>
+<%= f.hidden_field :post_id %>
+<%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
+<%= f.fields_for :user, User.new do |user_fields| %>
+    <%= user_fields.label "username" %>
+    <%= user_fields.text_field :username %>
 <% end %>
+<%= f.label "content" %>
+<%= f.text_field :content %>
 <%= f.submit %>
+<% end %>
 
 
