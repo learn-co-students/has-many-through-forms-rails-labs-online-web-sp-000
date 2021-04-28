@@ -13,11 +13,12 @@ class Comment < ActiveRecord::Base
   def users_attributes=(user_attributes)
     attributes.values.each do |user_attributes|
       user = User.find_or_create_by(user_attributes)
-      #  binding.pry
+      # binding.pry
     end
   end
 
   def reject_users(attributes)
-    attributes['username'].blank? || attributes['email'].blank?
+    #binding.pry
+    attributes['username'].blank?
   end
 end

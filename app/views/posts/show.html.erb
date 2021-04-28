@@ -1,11 +1,18 @@
 <h2><%= @post.title %></h2>
-<h4><%= @post.categories.name %></h4>
 <p><%= @post.content %></p>
+<% @post.categories.each do |category| %>
+<p><%= category.name %></p>
+<% end %>
 <ul>
 <% @post.comments.each do |comment| %>
+<%# binding.pry %>
 <li><%= comment.user.username %> says: <%= comment.content %></li>
 <% end %>
 </ul>
+<% @post.users.uniq.each do |user| %>
+<%= link_to user.username, user_path(user) %>
+<%# binding.pry %>
+<% end %>
 <%= form_for @post.comments.build do |f| %>
 <%= f.hidden_field :post_id %>
 <%= f.collection_select :user_id, User.all, :id, :username, include_blank: true %>
