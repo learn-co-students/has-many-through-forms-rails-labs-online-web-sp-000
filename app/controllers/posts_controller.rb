@@ -12,8 +12,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    #raise post_params
     post = Post.create(post_params)
     redirect_to post
+  end
+
+  def categories_attributes=(category_attributes)
+    category_attributes.values.each do |category_attributes|
+      category = Category.find_or_create_by(category_attribute)
+      self.categories << category
+    end
   end
 
   private
