@@ -4,6 +4,42 @@
 <br>
 <ul>
 <% @post.categories.each do |category| %>
-    <li><%= category %> </li>
+    <li><%= category.name %> </li>
     <% end %>
 </ul>
+<br>
+<ul>
+<% @post.comments.each do |comment| %>
+    <li><%= comment.user.username %> says: <%= comment.content %></li>
+<% end %>
+</ul>
+
+Commentors:
+<ul>
+<% @post.users.distinct.each do |user| %>
+  <li>
+    <%= link_to user.username, user_path(user) %>
+  </li>
+<% end %>
+</ul>
+
+<!-- form for adding a comment to a post -->
+<%= form_for  @post.comments.build do |f| %>
+    <%= f.hidden_field :post_id, value: @post.id %>
+<!-- a drop down of existing users that could have commented -->
+    <%= f.collection_select :user_id, User.all, :id, :username %>
+<br>
+<br>
+<!-- option to create a new user instead -->
+    <%= f.fields_for :user, User.new do |f| %>
+        <%= f.label :username %>
+        <%= f.text_field :username %>
+    <% end %>
+    <br>
+    <br>
+<!-- creating a comment for this post -->
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+
+    <%= f.submit %>
+<% end %>
