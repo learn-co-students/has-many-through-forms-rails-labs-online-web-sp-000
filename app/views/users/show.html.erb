@@ -1,1 +1,5 @@
-
+<%= @user.username %>
+<% @user.comments.each do |c| %>
+  <% post = Post.find(c.post_id) %>
+  <%= link_to post.title, post_path(post) %>
+<% end %>
