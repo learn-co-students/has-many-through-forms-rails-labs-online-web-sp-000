@@ -1,1 +1,36 @@
-
+<h1><%= @post.title %></h1>
+<%= @post.content %><br>
+<br>
+<br>
+Categories:<br>
+<% @post.categories.each do |c| %>
+  <%= c.name %><br>
+<% end %>
+<br>
+<br>
+Comments:<br>
+<% @post.comments.each do |c| %>
+  <% @user = User.find(c.user_id) %>
+  <%= "#{@user.username} says: #{c.content}" %><br>
+<% end %>
+<br>
+<br>
+Commenters:<br>
+<% commenters = [] %>
+<% @post.comments.each do |comment| %>
+  <% commenters << comment.user %>
+<% end %>
+<% commenters.uniq.each do |commenter| %>
+  <%= link_to commenter.username, user_path(commenter) %>
+<% end %>
+<p>Add Comment:</p>
+<%= form_for @comment do |f| %>
+<%= f.text_area :content %><br>
+Author:<br>
+<%= f.collection_select :user_id, User.all, :id, :username %><br>
+<%= f.fields_for :user, @comment.build_user do |user_fields| %>
+  <%= user_fields.text_field :username %>
+<% end %>
+<%= f.hidden_field :post_id, value: @post.id %>
+<%= f.submit %>
+<% end %>
