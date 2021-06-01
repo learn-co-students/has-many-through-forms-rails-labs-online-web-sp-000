@@ -5,3 +5,21 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+categories = %w[Fashion
+    Food 
+    Travel
+    Music
+    Lifestyle
+    Fitness
+    DIY
+    Sports]
+    categories.each do |cat|
+      Category.create({name: "#{cat}"})
+    end
+
+    User.create([{username: "John", email: "John@email.com"},
+    {username:"Chris", email: "Chris@email.com"},
+    {username:"Sam", email: "Sam@email.com"},
+    {username:"Mark", email: "Mark@email.com"},
+    {username:"Chet", email: "Chet@email.com"},
+    {username:"Bill", email: "Bill@email.com"}])
