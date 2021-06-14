@@ -33,9 +33,9 @@
   <br>
 
     <h4>Create User</h4>
-    <%=f.fields_for :user, User.new do |user_fields| %>
-      <%=user_fields.label :username %>
-      <%=user_fields.text_field :username %>
+    <%=f.fields_for :user, User.new do |user| %>
+      <%=user.label :username %>
+      <%=user.text_field :username %>
     <%end%>
   <%=f.submit %>
   <% end %>
