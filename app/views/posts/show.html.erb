@@ -8,7 +8,7 @@
 <br>
 <br>
 <% @post.comments.each do |comment| %>
-    <%= comment.user.username %> says <%= comment.content %>
+    <%= comment.user.username %> says: <%= comment.content %>
     <br>
 <% end %>
 <br>
@@ -19,7 +19,7 @@
 <br>
 <%= form_for @post.comments.new do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %>
-    <%= f.collection_select :user_id, User.all, :id, :username,{include_blank: 'Select a username'} %>
+    <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: 'Select a username'} %>
     <br>
     <%= f.fields_for :user, User.new do |user_fields| %>
         <%= user_fields.label :username %>
